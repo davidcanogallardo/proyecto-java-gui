@@ -1,4 +1,5 @@
-package project.DAOs;
+package model;
+
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,9 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import project.Classes.Product;
-import project.Models.Identificable;
-import project.Models.Persistable;
 
 public class ProductDAO implements Persistable<Product>, Serializable {
     private HashMap<Integer, Product> hashMap = new HashMap<>();

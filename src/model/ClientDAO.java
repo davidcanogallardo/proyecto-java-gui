@@ -1,4 +1,4 @@
-package project.DAOs;
+package model;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,9 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import project.Classes.Client;
-import project.Models.Identificable;
-import project.Models.Persistable;
+import model.Identificable;
+import model.Persistable;
 
 public class ClientDAO implements Persistable<Client>, Serializable {
     private HashMap<Integer, Client> hashMap = new HashMap<>();
