@@ -1,6 +1,5 @@
 package model;
 
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,7 +10,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 
 public class ProductDAO implements Persistable<Product>, Serializable {
     private HashMap<Integer, Product> hashMap = new HashMap<>();
@@ -38,7 +36,7 @@ public class ProductDAO implements Persistable<Product>, Serializable {
         if (hashMap.containsKey(id)) {
             return (Product) hashMap.get(id);
         } else {
-            System.out.println("nulo "+ id);
+            System.out.println("nulo " + id);
             return null;
         }
     }
@@ -51,17 +49,17 @@ public class ProductDAO implements Persistable<Product>, Serializable {
         hashMap.replace(obj.getId(), get(obj.getId()), obj);
     }
 
-    public void save(String file) throws IOException {
+    public void save() throws IOException {
         System.out.println("guardando products dao...");
-        FileOutputStream fos = new FileOutputStream(file);
+        FileOutputStream fos = new FileOutputStream("product.dat");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(this.hashMap);
         oos.close();
     }
 
-    public void load(String file) throws IOException {
+    public void load() throws IOException {
         System.out.println("cargando....");
-        FileInputStream fis = new FileInputStream(file);
+        FileInputStream fis = new FileInputStream("product.dat");
         try {
             ObjectInputStream ois = new ObjectInputStream(fis);
             try {
@@ -72,7 +70,7 @@ public class ProductDAO implements Persistable<Product>, Serializable {
             }
             ois.close();
         } catch (Exception EOFException) {
-            //TODO: handle exception
+            // TODO: handle exception
         }
 
     }

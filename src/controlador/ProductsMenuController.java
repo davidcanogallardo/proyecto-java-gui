@@ -2,64 +2,74 @@ package controlador;
 
 import java.io.IOException;
 import java.util.Locale;
-import java.util.Locale.Category;
 import java.util.ResourceBundle;
+import java.util.Locale.Category;
 
-import javafx.application.Application;
+import org.controlsfx.validation.Severity;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-public class IniciBotonsController extends Application {
+public class ProductsMenuController {
+    private ResourceBundle texts;
+    // Elements gràfics de la UI
+    private Stage ventana;
 
-	private ResourceBundle texts;
+    // Injecció dels panells i controls de la UI definida al fitxer fxml
+    @FXML
+    private Button btnAdd;
+    @FXML
+    private Button btnList;
+    @FXML
+    private Button btnListD;
+    // @FXML private Button btnProducts;
+    @FXML
+    private Button btnReturn;
 
-	// Injecció dels panells i controls de la UI definida al fitxer fxml
-	@FXML
-	private Button btnPersones;
-	@FXML
-	private Button btnProducts;
-	@FXML
-	private Button btnClients;
-	@FXML
-	private Button btnClockInOut;
-	@FXML
-	private Button btnSortir;
+    public Stage getVentana() {
+        return ventana;
+    }
 
-	@Override
-	public void start(Stage primaryStage) throws IOException {
+    public void setVentana(Stage ventana) {
+        System.out.println("seteo ventana");
+        this.ventana = ventana;
+    }
 
-		// Carrega el fitxer amb la interficie d'usuari inicial (Scene)
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/IniciBotonsView.fxml"));
+    public void sortir() {
+        System.out.println("cerrar");
+        // TODO guardar weas
+    }
 
-		// Carregar fitxer de textos multiidioma de la localització actual
-		Locale localitzacioDisplay = Locale.getDefault(Category.DISPLAY);
-		texts = ResourceBundle.getBundle("vista.Texts", localitzacioDisplay);
-		// fins aquí tot igual, només falta assignar el fitxer de recursos al formulari
-		loader.setResources(texts);
+    @FXML
+    private void onActionSortir(ActionEvent e) throws IOException {
+        System.out.println("salgo de products");
+        // TODO sortir();
 
-		Scene fm_inici = new Scene(loader.load());
+        ventana.close();
+    }
 
-		// Li assigna la escena a la finestra inicial (primaryStage) i la mostra
-		primaryStage.setScene(fm_inici);
-		primaryStage.setTitle(texts.getString("title.agenda"));
-		primaryStage.show();
-
-	}
-
-	@FXML
+    @FXML
 	private void onAction(ActionEvent e) throws Exception {
-		if (e.getSource() == btnPersones) {// verifica si el botón es igual al que llamo al evento
-			changeScene("/vista/PersonesView.fxml", "Persones");
-		} else if (e.getSource() == btnProducts) {
-			System.out.println("voy a prods1");
-			changeScene("/vista/ProductsMenuView.fxml", "Productos");
-		} else if (e.getSource() == btnSortir) {
+		if (e.getSource() == btnAdd) {// verifica si el botón es igual al que llamo al evento
+			changeScene("/vista/AddProductView.fxml", "Product");
+		} else if (e.getSource() == btnList) {
+            System.out.println("listar");
+		} else if (e.getSource() == btnListD) {
+			System.out.println("listar descatalogados");
+		} else if (e.getSource() == btnReturn) {
 			Platform.exit();
 		}
 	}
@@ -84,9 +94,8 @@ public class IniciBotonsController extends Application {
 		/************** Modificar ************/
 		// Crear un objecte de la clase PersonasController ja que necessitarem accedir
 		// al mètodes d'aquesta classe
-		if (title.equals("Productos")) {
-			ProductsMenuController productsController = loader.getController();
-			System.out.println("voy a prods");
+		if (title.equals("Product")) {
+			ProductsController productsController = loader.getController();
 			productsController.setVentana(stage);
 
 			// Programem l'event que s'executará quan es tanqui la finestra
@@ -104,7 +113,4 @@ public class IniciBotonsController extends Application {
 		}
 	}
 
-	public static void main(String[] args) {
-		launch(args);
-	}
 }
