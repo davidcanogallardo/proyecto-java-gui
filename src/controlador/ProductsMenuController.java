@@ -101,7 +101,12 @@ public class ProductsMenuController {
 
 			// Programem l'event que s'executará quan es tanqui la finestra
 			stage.setOnCloseRequest((WindowEvent we) -> {
-				productsAdd.sortir();
+				try {
+					productsAdd.sortir();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			});
 		}
 	}

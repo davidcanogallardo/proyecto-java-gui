@@ -58,7 +58,7 @@ public class ProductsController {
         this.ventana = ventana;
     }
 
-    public void sortir() {
+    public void sortir() throws IOException {
         System.out.println("cerrar");
         dao.save();
         // TODO guardar weas
