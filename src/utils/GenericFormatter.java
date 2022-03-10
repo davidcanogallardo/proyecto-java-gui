@@ -58,27 +58,31 @@ public class GenericFormatter {
 
     public static String formatNumber(Integer num) {
         if (num != null) {
-            return nFormatter.format(num);
+            // return nFormatter.format(num);
+            return num.toString();
         }
         return " ";
     }
 
     public static String formatPrice(Double num) {
         if (num != null) {
-            return cFormatter.format(num);
+            // return cFormatter.format(num);
+            return num.toString();
         }
         return " ";
     }
     public static String formatTime(LocalTime time) {
         if (time != null) {
-            return timeFormatter.format(time);
+            // return timeFormatter.format(time);
+            return time.toString();
         }
         return " ";
     }
 
     public static String formatDate(LocalDate date) {
         if (date != null) {
-            return date.format(dateFormatter);
+            // return date.format(dateFormatter);
+            return date.toString();
         } 
         return null;
     }

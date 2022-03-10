@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import utils.GenericFormatter;
 
 public class IniciBotonsController extends Application {
 
@@ -33,7 +34,6 @@ public class IniciBotonsController extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-
 		// Carrega el fitxer amb la interficie d'usuari inicial (Scene)
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/IniciBotonsView.fxml"));
 
@@ -85,13 +85,13 @@ public class IniciBotonsController extends Application {
 		// Crear un objecte de la clase PersonasController ja que necessitarem accedir
 		// al mètodes d'aquesta classe
 		if (title.equals("Productos")) {
-			ProductsMenuController productsController = loader.getController();
+			ProductsMenuController productsMenu = loader.getController();
 			System.out.println("voy a prods");
-			productsController.setVentana(stage);
+			productsMenu.setVentana(stage);
 
 			// Programem l'event que s'executará quan es tanqui la finestra
 			stage.setOnCloseRequest((WindowEvent we) -> {
-				productsController.sortir();
+				productsMenu.sortir();
 			});
 		} else if (title.equals("Persones")) {
 			PersonesController personasControler = loader.getController();

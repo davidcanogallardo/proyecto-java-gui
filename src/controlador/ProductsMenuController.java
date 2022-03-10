@@ -64,7 +64,8 @@ public class ProductsMenuController {
     @FXML
 	private void onAction(ActionEvent e) throws Exception {
 		if (e.getSource() == btnAdd) {// verifica si el botón es igual al que llamo al evento
-			changeScene("/vista/AddProductView.fxml", "Product");
+			System.out.println("products view");
+			changeScene("/vista/ProductsView.fxml", "Product");
 		} else if (e.getSource() == btnList) {
             System.out.println("listar");
 		} else if (e.getSource() == btnListD) {
@@ -95,20 +96,12 @@ public class ProductsMenuController {
 		// Crear un objecte de la clase PersonasController ja que necessitarem accedir
 		// al mètodes d'aquesta classe
 		if (title.equals("Product")) {
-			ProductsController productsController = loader.getController();
-			productsController.setVentana(stage);
+			ProductsController productsAdd = loader.getController();
+			productsAdd.setVentana(stage);
 
 			// Programem l'event que s'executará quan es tanqui la finestra
 			stage.setOnCloseRequest((WindowEvent we) -> {
-				productsController.sortir();
-			});
-		} else if (title.equals("Persones")) {
-			PersonesController personasControler = loader.getController();
-			personasControler.setVentana(stage);
-
-			// Programem l'event que s'executará quan es tanqui la finestra
-			stage.setOnCloseRequest((WindowEvent we) -> {
-				personasControler.sortir();
+				productsAdd.sortir();
 			});
 		}
 	}

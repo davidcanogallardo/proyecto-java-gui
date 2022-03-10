@@ -6,10 +6,17 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "hellofx.Main",
+            "projectName": "proyecto-java-gui_9410ab0e"
+        },
+        {
+            "type": "java",
             "name": "Launch App",
             "request": "launch",
             "mainClass": "controlador.IniciBotonsController",
-            "vmArgs": "--module-path G:/Documents/javafx-sdk-17.0.2/lib --add-modules javafx.controls,javafx.fxml",
+            "vmArgs": "--module-path /home/d/javafx-sdk-17.0.2/lib/ --add-modules javafx.controls,javafx.fxml"
         }
     ]
 }
