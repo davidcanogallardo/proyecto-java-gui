@@ -12,8 +12,8 @@
    <children>
       <Text layoutX="242.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="owo" />
       <Button layoutX="510.0" layoutY="576.0" mnemonicParsing="false" onAction="#onActionSortir" text="salir" />
-      <Button layoutX="340.0" layoutY="576.0" mnemonicParsing="false" onAction="#printProds" text="guardar" />
-      <Button layoutX="427.0" layoutY="576.0" mnemonicParsing="false" text="eliminar" />
+      <Button layoutX="340.0" layoutY="576.0" mnemonicParsing="false" onAction="#addProd" text="guardar" />
+      <Button layoutX="427.0" layoutY="576.0" mnemonicParsing="false" onAction="#deleteProd" text="eliminar" />
       <Label layoutX="29.0" layoutY="37.0" text="id" />
       <CheckBox fx:id="isPack" layoutX="116.0" layoutY="273.0" mnemonicParsing="false" text="pack" />
       <DatePicker fx:id="startDatePicker" layoutX="116.0" layoutY="200.0" />

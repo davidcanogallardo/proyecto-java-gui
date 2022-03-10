@@ -59,6 +59,9 @@ public class IniciBotonsController extends Application {
 		} else if (e.getSource() == btnProducts) {
 			System.out.println("voy a prods1");
 			changeScene("/vista/ProductsMenuView.fxml", "Productos");
+		} else if (e.getSource() == btnClients) {
+			System.out.println("voy a clie1");
+			changeScene("/vista/ClientsMenuView.fxml", "Clientes");
 		} else if (e.getSource() == btnSortir) {
 			Platform.exit();
 		}
@@ -100,6 +103,15 @@ public class IniciBotonsController extends Application {
 			// Programem l'event que s'executará quan es tanqui la finestra
 			stage.setOnCloseRequest((WindowEvent we) -> {
 				personasControler.sortir();
+			});
+		} else if (title.equals("Clientes")) {
+			ClientsMenuController clientMenu = loader.getController();
+			System.out.println("voy a cliente");
+			clientMenu.setVentana(stage);
+
+			// Programem l'event que s'executará quan es tanqui la finestra
+			stage.setOnCloseRequest((WindowEvent we) -> {
+				clientMenu.sortir();
 			});
 		}
 	}

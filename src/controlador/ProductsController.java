@@ -28,26 +28,32 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class ProductsController {
-    
+
     private ProductDAO dao;
 
-    @FXML private TextField idTextField;
-	@FXML private TextField nameTextField;
-	@FXML private TextField priceTextField;
-	@FXML private TextField stockTextField;
-    @FXML private DatePicker startDatePicker;
-    @FXML private DatePicker endDatePicker;
-    @FXML private CheckBox isPack;
-
+    @FXML
+    private TextField idTextField;
+    @FXML
+    private TextField nameTextField;
+    @FXML
+    private TextField priceTextField;
+    @FXML
+    private TextField stockTextField;
+    @FXML
+    private DatePicker startDatePicker;
+    @FXML
+    private DatePicker endDatePicker;
+    @FXML
+    private CheckBox isPack;
 
     // Elements gràfics de la UI
     private Stage ventana;
-    
 
-	@FXML private void initialize() throws IOException {
-		dao = new ProductDAO();
+    @FXML
+    private void initialize() throws IOException {
+        dao = new ProductDAO();
         dao.load();
-	}
+    }
 
     public Stage getVentana() {
         return ventana;
@@ -73,13 +79,19 @@ public class ProductsController {
     }
 
     @FXML
-    private void printProds() {
+    private void addProd() {
         System.out.println(isPack.isSelected());
         if (!isPack.isSelected()) {
-            Product prod = new Product(Integer.parseInt(idTextField.getText()), 
-            nameTextField.getText(), Double.parseDouble(priceTextField.getText()), 
-            Integer.parseInt(stockTextField.getText()), startDatePicker.getValue(), endDatePicker.getValue());
-            dao.add(prod);
+            Product prod = new Product(Integer.parseInt(idTextField.getText()),
+                    nameTextField.getText(), Double.parseDouble(priceTextField.getText()),
+                    Integer.parseInt(stockTextField.getText()), startDatePicker.getValue(), endDatePicker.getValue());
+            if (dao.get(Integer.parseInt(idTextField.getText())) == null) {
+                System.out.println("el producto no existe lo añado");
+                dao.add(prod);
+            } else {
+                System.out.println("el producto existe lo modifico");
+                dao.modify(prod);
+            }
         } else {
             // TODO pack
         }
@@ -94,7 +106,21 @@ public class ProductsController {
     }
 
     @FXML
+    private void deleteProd() {
+        System.out.println(isPack.isSelected());
+        if (dao.get(Integer.parseInt(idTextField.getText())) != null) {
+            System.out.println("borro producto...");
+            dao.delete(dao.get(Integer.parseInt(idTextField.getText())));
+        } else {
+            System.out.println("el producto no existe no borro na");
+            // TODO pack
+        }
+    }
+
+    @FXML
     private void list() {
         System.out.println(dao.getMap());
     }
+
+    
 }
