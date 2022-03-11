@@ -8,10 +8,10 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PresenceController">
    <children>
       <Button layoutX="510.0" layoutY="576.0" mnemonicParsing="false" onAction="#onActionSortir" text="salir" />
-      <Button layoutX="271.0" layoutY="352.0" mnemonicParsing="false" onAction="#onAction" text="salida" />
+      <Button fx:id="guiClockOut" layoutX="271.0" layoutY="352.0" mnemonicParsing="false" onAction="#onAction" text="salida" />
       <Label layoutX="29.0" layoutY="37.0" text="id" />
-      <TextField fx:id="idTextField" layoutX="116.0" layoutY="33.0" />
+      <TextField fx:id="guiId" layoutX="116.0" layoutY="33.0" />
       <Button layoutX="116.0" layoutY="576.0" mnemonicParsing="false" onAction="#list" text="list" />
-      <Button layoutX="178.0" layoutY="352.0" mnemonicParsing="false" onAction="#onAction" text="entrada" />
+      <Button fx:id="guiClockIn" layoutX="178.0" layoutY="352.0" mnemonicParsing="false" onAction="#onAction" text="entrada" />
    </children>
 </AnchorPane>

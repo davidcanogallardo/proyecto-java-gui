@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -10,7 +11,7 @@
 
 <AnchorPane fx:id="root" prefHeight="519.0" prefWidth="569.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ClientsController">
    <children>
-      <GridPane layoutX="0.0380859375" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="245.0" prefWidth="600.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <GridPane fx:id="pane" layoutX="0.0380859375" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="273.0" prefWidth="600.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="79.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="521.0" minWidth="10.0" prefWidth="521.0" />
@@ -36,7 +37,7 @@
             <Label text="CP" GridPane.rowIndex="6" />
             <Label text="Direccion" GridPane.rowIndex="7" />
             <Label text="Telefono" GridPane.rowIndex="8" />
-            <TextField fx:id="guiId" text="1" onKeyPressed="#onKeyPressedId" GridPane.columnIndex="1" />
+            <TextField fx:id="guiId" onKeyPressed="#onKeyPressedId" text="1" GridPane.columnIndex="1" />
             <TextField fx:id="guiDni" text="47243497" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="guiName" text="a" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="guiSurname" text="a" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -44,12 +45,15 @@
             <TextField fx:id="guiProvince" text="a" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="guiCp" text="12345" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="guiAddress" text="a" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="guiPhone" text="123456789" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextArea fx:id="guiPhone" prefHeight="70.0" prefWidth="521.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
          </children>
       </GridPane>
       <Button layoutX="345.0" layoutY="459.0" mnemonicParsing="false" onAction="#addClient" prefHeight="25.0" prefWidth="92.0" text="Guardar" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="345.0" AnchorPane.rightAnchor="203.0" AnchorPane.topAnchor="459.0" />
       <Button layoutX="460.0" layoutY="459.0" mnemonicParsing="false" onAction="#deleteClient" text="Eliminar" />
       <Button layoutX="575.0" layoutY="459.0" mnemonicParsing="false" onAction="#onActionSortir" text="Sortir" />
       <Button layoutX="228.0" layoutY="459.0" mnemonicParsing="false" onAction="#list" prefHeight="25.0" prefWidth="92.0" text="List" />
+      <Button layoutX="379.0" layoutY="400.0" mnemonicParsing="false" onAction="#addPhone" prefHeight="37.0" prefWidth="45.0" text="+" />
+      <Button layoutX="437.0" layoutY="400.0" mnemonicParsing="false" onAction="#deletePhone" prefHeight="37.0" prefWidth="45.0" text="-" />
+      <TextField fx:id="guiPhone2" layoutX="101.0" layoutY="319.0" text="123456789" />
    </children>
 </AnchorPane>

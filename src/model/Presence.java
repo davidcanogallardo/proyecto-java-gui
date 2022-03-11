@@ -1,12 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import utils.GenericFormatter;
 
-public class Presence implements Comparable<Presence> {
+public class Presence implements Comparable<Presence>, Serializable {
     private Integer id;
     private LocalDate date;
     private LocalTime enterTime;

@@ -1,6 +1,7 @@
 package controlador;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -24,10 +25,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -52,29 +56,35 @@ public class ClientsController {
     @FXML
     private TextField guiAddress;
     @FXML
-    private TextField guiPhone;
+    private TextArea guiPhone;
+
+    @FXML
+    private GridPane pane;
 
     // Elements gràfics de la UI
     private Stage ventana;
-    
-	private ValidationSupport vs;
+
+    private ValidationSupport vs;
+    private ArrayList<TextField> phoneFields = new ArrayList<>();
 
     @FXML
     private void initialize() throws IOException {
         dao = new ClientDAO();
         dao.load();
 
-
         vs = new ValidationSupport();
-		vs.registerValidator(guiId, true, Validator.createEmptyValidator("ID obligatori"));
-		vs.registerValidator(guiDni, Validator.createRegexValidator("Dni incorrecto", "\\d{8}[a-zA-Z]{1}", Severity.ERROR));
-		vs.registerValidator(guiName, true, Validator.createEmptyValidator("Nombre obligatori"));
+        vs.registerValidator(guiId, true, Validator.createEmptyValidator("ID obligatori"));
+        vs.registerValidator(guiDni,
+                Validator.createRegexValidator("Dni incorrecto", "\\d{8}[a-zA-Z]{1}", Severity.ERROR));
+        vs.registerValidator(guiName, true, Validator.createEmptyValidator("Nombre obligatori"));
         vs.registerValidator(guiSurname, true, Validator.createEmptyValidator("Apelldios obligatori"));
-		vs.registerValidator(guiLocality, true, Validator.createEmptyValidator("localidad obligatori"));
-		vs.registerValidator(guiProvince, true, Validator.createEmptyValidator("provincia obligatori"));
-        vs.registerValidator(guiCp, Validator.createRegexValidator("codigo postal incorrecte", "\\d{5}", Severity.ERROR));
-		vs.registerValidator(guiAddress, true, Validator.createEmptyValidator("direccion obligatori"));
-        vs.registerValidator(guiPhone, Validator.createRegexValidator("movil incorrecte", "\\d{9}", Severity.ERROR));
+        vs.registerValidator(guiLocality, true, Validator.createEmptyValidator("localidad obligatori"));
+        vs.registerValidator(guiProvince, true, Validator.createEmptyValidator("provincia obligatori"));
+        vs.registerValidator(guiCp,
+                Validator.createRegexValidator("codigo postal incorrecte", "\\d{5}", Severity.ERROR));
+        vs.registerValidator(guiAddress, true, Validator.createEmptyValidator("direccion obligatori"));
+        vs.registerValidator(guiPhone,
+                Validator.createRegexValidator("movil incorrecte", "^(([0-9]{9})([,][0-9]{9})*)$", Severity.ERROR));
     }
 
     public Stage getVentana() {
@@ -102,10 +112,10 @@ public class ClientsController {
     @FXML
     private void addClient() {
         String dni = guiDni.getText();
-        if(isDatosValidos()){
+        if (isDatosValidos()) {
             if (isDniLetterValid(dni.substring(8), Integer.parseInt(dni.substring(0, 8)))) {
                 Client client = getClientFromGui();
-        
+
                 if (dao.add(client) != null) {
                     System.out.println("\nCliente añadido!\n");
                 } else {
@@ -143,11 +153,15 @@ public class ClientsController {
         String province = guiProvince.getText();
         String zipCode = guiCp.getText();
         String address = guiAddress.getText();
-        String phone = guiPhone.getText();
+        String phoneGui = guiPhone.getText();
 
         Address fullAddress = new Address(locality, province, zipCode, address);
         LinkedHashSet<String> phoneNumber = new LinkedHashSet<>();
-        phoneNumber.add(phone);
+
+        String[] phones = phoneGui.split(",");
+        for (String phone : phones) {
+            phoneNumber.add(phone);
+        }
 
         Client client = new Client(id, dni, name, surname, fullAddress, phoneNumber);
         return client;
@@ -159,23 +173,24 @@ public class ClientsController {
 
     private boolean isDatosValidos() {
 
-		//Comprovar si totes les dades són vàlides
-		if (vs.isInvalid()) {
-			String errors = vs.getValidationResult().getMessages().toString();
-			// Mostrar finestra amb els errors
-			Alert alert = new Alert(AlertType.CONFIRMATION);
-			alert.initOwner(ventana);
-			alert.setTitle("Camps incorrectes");
-			alert.setHeaderText("Corregeix els camps incorrectes");
-			alert.setContentText(errors);
-			alert.showAndWait();
-		
-			return false;
-		}
+        // Comprovar si totes les dades són vàlides
+        if (vs.isInvalid()) {
+            String errors = vs.getValidationResult().getMessages().toString();
+            // Mostrar finestra amb els errors
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.initOwner(ventana);
+            alert.setTitle("Camps incorrectes");
+            alert.setHeaderText("Corregeix els camps incorrectes");
+            alert.setContentText(errors);
+            alert.showAndWait();
 
-		return true;
+            return false;
+        }
 
-	}
+        return true;
+
+    }
+
     @FXML
     private void list() {
         System.out.println(dao.getMap());
@@ -189,13 +204,14 @@ public class ClientsController {
         return letter.equalsIgnoreCase(letters[num % 23]);
     }
 
-	@FXML private void onKeyPressedId(KeyEvent e) throws IOException {
+    @FXML
+    private void onKeyPressedId(KeyEvent e) throws IOException {
 
-		if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.TAB){
-			//Comprovar si existeix la persona indicada en el control idTextField
-			Client clie = dao.get(getClientId());
-			if(clie != null){ 
-				//posar els valors per modificarlos
+        if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.TAB) {
+            // Comprovar si existeix la persona indicada en el control idTextField
+            Client clie = dao.get(getClientId());
+            if (clie != null) {
+                // posar els valors per modificarlos
                 guiDni.setText(clie.getDni());
                 guiName.setText(clie.getName());
                 guiSurname.setText(clie.getSurname());
@@ -203,9 +219,16 @@ public class ClientsController {
                 guiProvince.setText(clie.getFullAddress().getProvince());
                 guiCp.setText(clie.getFullAddress().getZipCode());
                 guiAddress.setText(clie.getFullAddress().getAddress());
-                guiPhone.setText(clie.getPhoneNumber().stream().findFirst().get());
-			} else{ 
-				//nou registre
+                guiPhone.setText("");
+                for (String phone : clie.getPhoneNumber()) {
+                    if (clie.getPhoneNumber().toArray()[clie.getPhoneNumber().size()-1].equals(phone)) {
+                        guiPhone.setText(guiPhone.getText() + phone);
+                    } else {
+                        guiPhone.setText(guiPhone.getText() + phone + ",");
+                    }
+                }
+            } else {
+                // nou registre
                 guiDni.setText("");
                 guiName.setText("");
                 guiSurname.setText("");
@@ -214,8 +237,24 @@ public class ClientsController {
                 guiCp.setText("");
                 guiAddress.setText("");
                 guiPhone.setText("");
-			}
-		}
-	}
+            }
+        }
+    }
 
+    @FXML
+    private void addPhone() {
+        // GridPane pane = new GridPane();
+        TextField text = new TextField();
+        text.setId("owo");
+        vs.registerValidator(text, Validator.createRegexValidator("movil incorrecte", "\\d{9}", Severity.ERROR));
+        pane.addRow(pane.getRowCount() + 1, text);
+    }
+
+    @FXML
+    private void deletePhone() {
+        System.out.println(pane.getChildren().get(0));
+        vs.getRegisteredControls().remove(pane.getChildren().get(0));
+        // pane.getChildren().remove(0);
+        // pane.getChildren().remove(0);
+    }
 }

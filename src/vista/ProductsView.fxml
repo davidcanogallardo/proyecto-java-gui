@@ -4,13 +4,14 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ProductsController">
    <children>
-      <Text layoutX="242.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="owo" />
+      <Text layoutX="457.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="owo" />
       <Button layoutX="510.0" layoutY="576.0" mnemonicParsing="false" onAction="#onActionSortir" text="salir" />
       <Button layoutX="340.0" layoutY="576.0" mnemonicParsing="false" onAction="#addProd" text="guardar" />
       <Button layoutX="427.0" layoutY="576.0" mnemonicParsing="false" onAction="#deleteProd" text="eliminar" />
@@ -21,12 +22,15 @@
       <Label layoutX="29.0" layoutY="77.0" text="nombre" />
       <TextField fx:id="nameTextField" layoutX="116.0" layoutY="73.0" />
       <Label layoutX="29.0" layoutY="118.0" text="precio" />
-      <TextField fx:id="priceTextField" layoutX="116.0" layoutY="114.0" />
+      <TextField fx:id="guiDiscount" layoutX="116.0" layoutY="303.0" />
       <Label layoutX="29.0" layoutY="157.0" text="stock" />
       <TextField fx:id="stockTextField" layoutX="116.0" layoutY="153.0" />
       <Label layoutX="32.0" layoutY="204.0" text="inicio" />
       <Label layoutX="29.0" layoutY="238.0" text="fin" />
       <DatePicker fx:id="endDatePicker" layoutX="116.0" layoutY="234.0" />
       <Button layoutX="234.0" layoutY="576.0" mnemonicParsing="false" onAction="#list" text="list" />
+      <Label layoutX="22.0" layoutY="307.0" text="Descuento" />
+      <Label layoutX="22.0" layoutY="343.0" text="ProductsId" />
+      <TextArea fx:id="guiProducts" layoutX="116.0" layoutY="336.0" prefHeight="87.0" prefWidth="319.0" />
    </children>
 </AnchorPane>

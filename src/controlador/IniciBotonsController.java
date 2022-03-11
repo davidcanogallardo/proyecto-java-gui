@@ -1,8 +1,14 @@
 package controlador;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Locale.Category;
+
+import org.controlsfx.validation.Validator;
+import org.controlsfx.validation.Severity;
+import org.controlsfx.validation.ValidationSupport;
+
 import java.util.ResourceBundle;
 
 import javafx.application.Application;
@@ -12,6 +18,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import utils.GenericFormatter;
@@ -22,6 +31,8 @@ public class IniciBotonsController extends Application {
 
 	// Injecció dels panells i controls de la UI definida al fitxer fxml
 	@FXML
+	private AnchorPane root;
+	@FXML
 	private Button btnPersones;
 	@FXML
 	private Button btnProducts;
@@ -31,6 +42,20 @@ public class IniciBotonsController extends Application {
 	private Button btnClockInOut;
 	@FXML
 	private Button btnSortir;
+	@FXML
+	private TextArea ewe;
+
+
+	private ValidationSupport vs;
+	private ArrayList<TextField> owoContainer = new ArrayList<>();
+
+    @FXML
+    private void initialize() throws IOException {
+        vs = new ValidationSupport();
+		//         vs.registerValidator(ewe, Validator.createRegexValidator("Dni incorrecto", "\\^(([0-9]{9})([,][0-9]{9})*)$", Severity.ERROR));
+
+        vs.registerValidator(ewe, Validator.createRegexValidator("Dni incorrecto", "^(([0-9]{9})([,][0-9]{9})*)$", Severity.ERROR));
+    }
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
@@ -52,16 +77,40 @@ public class IniciBotonsController extends Application {
 
 	}
 
+	private Integer y = 20;
+	private Integer id = 1;
+
 	@FXML
 	private void onAction(ActionEvent e) throws Exception {
 		if (e.getSource() == btnPersones) {// verifica si el botón es igual al que llamo al evento
-			changeScene("/vista/PersonesView.fxml", "Persones");
+			System.out.println(vs.isInvalid());
+			// changeScene("/vista/PersonesView.fxml", "Persones");
+			// TextField owo = new TextField("owo");
+			// owo.setLayoutX(174);
+			// owo.setLayoutY(y);
+			// y+=30;
+			// owo.setId(id.toString());
+			// id++;
+			// root.getChildren().add(owo);
+			
+			// owoContainer.add(owo);
+			// System.out.println();
 		} else if (e.getSource() == btnProducts) {
-			System.out.println("voy a prods1");
-			changeScene("/vista/ProductsMenuView.fxml", "Productos");
+			// for (TextField textField : owoContainer) {
+				// root.getChildren().remove(textField);
+				// if (textField.getId().equals("1")) {
+				// 	System.out.println("1z");
+				// } else {
+				// 	vs.registerValidator(textField, true, Validator.createEmptyValidator("ID obligatori"));
+				// }
+			// }
+			// System.out.println("voy a prods1");
+			// changeScene("/vista/ProductsMenuView.fxml", "Productos");
 		} else if (e.getSource() == btnClients) {
 			System.out.println("voy a clie1");
 			changeScene("/vista/ClientsMenuView.fxml", "Clientes");
+		} else if (e.getSource() == btnClockInOut) {
+			changeScene("/vista/PresenceMenuView.fxml", "Fichar");
 		} else if (e.getSource() == btnSortir) {
 			Platform.exit();
 		}
@@ -112,6 +161,15 @@ public class IniciBotonsController extends Application {
 			// Programem l'event que s'executará quan es tanqui la finestra
 			stage.setOnCloseRequest((WindowEvent we) -> {
 				clientMenu.sortir();
+			});
+		} else if (title.equals("Fichar")) {
+			PresenceMenuController presenceMenu = loader.getController();
+			System.out.println("voy a cliente");
+			presenceMenu.setVentana(stage);
+
+			// Programem l'event que s'executará quan es tanqui la finestra
+			stage.setOnCloseRequest((WindowEvent we) -> {
+				presenceMenu.sortir();
 			});
 		}
 	}

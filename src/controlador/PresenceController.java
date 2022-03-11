@@ -1,10 +1,17 @@
 package controlador;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Locale.Category;
 
+import model.Address;
+import model.Client;
+import model.ClientDAO;
+import model.Presence;
 import model.PresenceRegisterDAO;
 import model.Product;
 import model.ProductDAO;
@@ -27,14 +34,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
 public class PresenceController {
 
     private PresenceRegisterDAO dao;
 
     @FXML
-    private TextField idTextField;
-
+    private TextField guiId;
 
     @FXML
     private Button guiClockIn;
@@ -44,10 +49,16 @@ public class PresenceController {
     // Elements gràfics de la UI
     private Stage ventana;
 
+    private ValidationSupport vs;
+
     @FXML
     private void initialize() throws IOException {
         dao = new PresenceRegisterDAO();
-        // dao.load();
+        dao.load();
+
+        vs = new ValidationSupport();
+        // vs.registerValidator(guiId, Validator.createRegexValidator("id obligatorio", "\\d{9}", Severity.ERROR));
+        vs.registerValidator(guiId, true, Validator.createEmptyValidator("ID obligatori"));
     }
 
     public Stage getVentana() {
@@ -61,31 +72,58 @@ public class PresenceController {
 
     public void sortir() throws IOException {
         System.out.println("cerrar");
-        // dao.save();
+        dao.save();
         // TODO guardar weas
+    }
+
+    @FXML
+    private boolean isDatosValidos() {
+        // Comprovar si totes les dades són vàlides
+        if (vs.isInvalid()) {
+            String errors = vs.getValidationResult().getMessages().toString();
+            // Mostrar finestra amb els errors
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.initOwner(ventana);
+            alert.setTitle("Camps incorrectes");
+            alert.setHeaderText("Corregeix els camps incorrectes");
+            alert.setContentText(errors);
+            alert.showAndWait();
+
+            return false;
+        }
+
+        return true;
+
     }
 
     @FXML
     private void onActionSortir(ActionEvent e) throws IOException {
         System.out.println("salgo de products");
         // TODO sortir();
-        // dao.save();
+        dao.save();
         ventana.close();
     }
 
     @FXML
 	private void onAction(ActionEvent e) throws Exception {
 		if (e.getSource() == guiClockIn) {// verifica si el botón es igual al que llamo al evento
-			System.out.println("ficho entrada");
+            if(isDatosValidos()){
+                Presence presence = new Presence(Integer.parseInt(guiId.getText()), LocalDate.now(), LocalTime.now());
+                dao.add(presence);
+                System.out.println("ficho entrada");
+            }
 		} else if (e.getSource() == guiClockOut) {
-            System.out.println("ficho salida");
+            if(isDatosValidos()){
+                dao.addLeaveTime(Integer.parseInt(guiId.getText()));
+                System.out.println("ficho entrada");
+            }
 		}
 	}
 
     @FXML
     private void list() {
+        System.out.println("list ");
         dao.list();
     }
 
-    
 }
