@@ -29,22 +29,22 @@
          <children>
             <Label prefHeight="15.0" prefWidth="81.0" text="ID" />
             <Label text="DNI" GridPane.rowIndex="1" />
-            <Label text="Apellidos" GridPane.rowIndex="3" />
-            <Label text="CP" GridPane.rowIndex="6" />
             <Label prefHeight="20.0" prefWidth="61.0" text="Nombre" GridPane.rowIndex="2" />
-            <TextField fx:id="guiId" GridPane.columnIndex="1" />
-            <TextField fx:id="guiDni" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="guiSurname" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="guiCp" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="guiName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Apellidos" GridPane.rowIndex="3" />
             <Label text="Localidad" GridPane.rowIndex="4" />
             <Label text="Provincia" GridPane.rowIndex="5" />
+            <Label text="CP" GridPane.rowIndex="6" />
             <Label text="Direccion" GridPane.rowIndex="7" />
             <Label text="Telefono" GridPane.rowIndex="8" />
-            <TextField fx:id="guiLocality" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="guiProvince" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="guiAddress" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="guiPhone" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="guiId" text="1" onKeyPressed="#onKeyPressedId" GridPane.columnIndex="1" />
+            <TextField fx:id="guiDni" text="47243497" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="guiName" text="a" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="guiSurname" text="a" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="guiLocality" text="a" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="guiProvince" text="a" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="guiCp" text="12345" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="guiAddress" text="a" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="guiPhone" text="123456789" GridPane.columnIndex="1" GridPane.rowIndex="8" />
          </children>
       </GridPane>
       <Button layoutX="345.0" layoutY="459.0" mnemonicParsing="false" onAction="#addClient" prefHeight="25.0" prefWidth="92.0" text="Guardar" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="345.0" AnchorPane.rightAnchor="203.0" AnchorPane.topAnchor="459.0" />

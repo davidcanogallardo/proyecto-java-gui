@@ -22,8 +22,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import model.ClientDAO;
 
 public class ClientsMenuController {
+
+    private ClientDAO dao;
+
+	
     private ResourceBundle texts;
     // Elements gràfics de la UI
     private Stage ventana;
@@ -36,6 +41,12 @@ public class ClientsMenuController {
     // @FXML private Button btnProducts;
     @FXML
     private Button btnReturn;
+
+    @FXML
+    private void initialize() throws IOException {
+        dao = new ClientDAO();
+        dao.load();
+	}
 
     public Stage getVentana() {
         return ventana;
@@ -65,7 +76,7 @@ public class ClientsMenuController {
 			System.out.println("clients view");
 			changeScene("/vista/ClientsView.fxml", "Client");
 		} else if (e.getSource() == btnList) {
-            System.out.println("listar");
+            System.out.println(dao.getMap().toString());
 		} else if (e.getSource() == btnReturn) {
 			Platform.exit();
 		}

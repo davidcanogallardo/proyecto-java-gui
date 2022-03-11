@@ -102,14 +102,23 @@ public class ClientsController {
     @FXML
     private void addClient() {
         String dni = guiDni.getText();
-        if(isDatosValidos() && isDniLetterValid(dni.substring(8), Integer.parseInt(dni.substring(0, 8)))){
-            Client client = getClientFromGui();
-    
-            if (dao.add(client) != null) {
-                System.out.println("\nCliente añadido!\n");
+        if(isDatosValidos()){
+            if (isDniLetterValid(dni.substring(8), Integer.parseInt(dni.substring(0, 8)))) {
+                Client client = getClientFromGui();
+        
+                if (dao.add(client) != null) {
+                    System.out.println("\nCliente añadido!\n");
+                } else {
+                    dao.modify(client);
+                    System.out.println("el cliente ya existe lo modifico");
+                }
             } else {
-                dao.modify(client);
-                System.out.println("el cliente ya existe lo modifico");
+                Alert alert = new Alert(AlertType.CONFIRMATION);
+                alert.initOwner(ventana);
+                alert.setTitle("DNI incorrecto");
+                alert.setHeaderText("Corrige la letra del dni");
+                alert.setContentText("Corrige la letra del dni");
+                alert.showAndWait();
             }
         }
     }
@@ -179,5 +188,34 @@ public class ClientsController {
         };
         return letter.equalsIgnoreCase(letters[num % 23]);
     }
+
+	@FXML private void onKeyPressedId(KeyEvent e) throws IOException {
+
+		if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.TAB){
+			//Comprovar si existeix la persona indicada en el control idTextField
+			Client clie = dao.get(getClientId());
+			if(clie != null){ 
+				//posar els valors per modificarlos
+                guiDni.setText(clie.getDni());
+                guiName.setText(clie.getName());
+                guiSurname.setText(clie.getSurname());
+                guiLocality.setText(clie.getFullAddress().getLocality());
+                guiProvince.setText(clie.getFullAddress().getProvince());
+                guiCp.setText(clie.getFullAddress().getZipCode());
+                guiAddress.setText(clie.getFullAddress().getAddress());
+                guiPhone.setText(clie.getPhoneNumber().stream().findFirst().get());
+			} else{ 
+				//nou registre
+                guiDni.setText("");
+                guiName.setText("");
+                guiSurname.setText("");
+                guiLocality.setText("");
+                guiProvince.setText("");
+                guiCp.setText("");
+                guiAddress.setText("");
+                guiPhone.setText("");
+			}
+		}
+	}
 
 }
