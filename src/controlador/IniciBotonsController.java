@@ -46,16 +46,19 @@ public class IniciBotonsController extends Application {
 	private TextArea ewe;
 
 
+
 	private ValidationSupport vs;
 	private ArrayList<TextField> owoContainer = new ArrayList<>();
 
-    @FXML
-    private void initialize() throws IOException {
-        vs = new ValidationSupport();
-		//         vs.registerValidator(ewe, Validator.createRegexValidator("Dni incorrecto", "\\^(([0-9]{9})([,][0-9]{9})*)$", Severity.ERROR));
+	@FXML
+	private void initialize() throws IOException {
+		vs = new ValidationSupport();
+		// vs.registerValidator(ewe, Validator.createRegexValidator("Dni incorrecto",
+		// "\\^(([0-9]{9})([,][0-9]{9})*)$", Severity.ERROR));
 
-        vs.registerValidator(ewe, Validator.createRegexValidator("Dni incorrecto", "^(([0-9]{9})([,][0-9]{9})*)$", Severity.ERROR));
-    }
+		vs.registerValidator(ewe,
+				Validator.createRegexValidator("Dni incorrecto", "^(([0-9]{9})([,][0-9]{9})*)$", Severity.ERROR));
+	}
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
@@ -83,7 +86,8 @@ public class IniciBotonsController extends Application {
 	@FXML
 	private void onAction(ActionEvent e) throws Exception {
 		if (e.getSource() == btnPersones) {// verifica si el botón es igual al que llamo al evento
-			System.out.println(vs.isInvalid());
+			// System.out.println(vs.isInvalid());
+			changeScene("/vista/List.fxml", "ewe");
 			// changeScene("/vista/PersonesView.fxml", "Persones");
 			// TextField owo = new TextField("owo");
 			// owo.setLayoutX(174);
@@ -92,20 +96,21 @@ public class IniciBotonsController extends Application {
 			// owo.setId(id.toString());
 			// id++;
 			// root.getChildren().add(owo);
-			
+
 			// owoContainer.add(owo);
 			// System.out.println();
 		} else if (e.getSource() == btnProducts) {
 			// for (TextField textField : owoContainer) {
-				// root.getChildren().remove(textField);
-				// if (textField.getId().equals("1")) {
-				// 	System.out.println("1z");
-				// } else {
-				// 	vs.registerValidator(textField, true, Validator.createEmptyValidator("ID obligatori"));
-				// }
+			// root.getChildren().remove(textField);
+			// if (textField.getId().equals("1")) {
+			// System.out.println("1z");
+			// } else {
+			// vs.registerValidator(textField, true, Validator.createEmptyValidator("ID
+			// obligatori"));
+			// }
 			// }
 			// System.out.println("voy a prods1");
-			// changeScene("/vista/ProductsMenuView.fxml", "Productos");
+			changeScene("/vista/ProductsMenuView.fxml", "Productos");
 		} else if (e.getSource() == btnClients) {
 			System.out.println("voy a clie1");
 			changeScene("/vista/ClientsMenuView.fxml", "Clientes");
@@ -170,6 +175,20 @@ public class IniciBotonsController extends Application {
 			// Programem l'event que s'executará quan es tanqui la finestra
 			stage.setOnCloseRequest((WindowEvent we) -> {
 				presenceMenu.sortir();
+			});
+		} else if (title.equals("ewe")) {
+			List list = loader.getController();
+			System.out.println("voy a list");
+			list.setVentana(stage);
+
+			// Programem l'event que s'executará quan es tanqui la finestra
+			stage.setOnCloseRequest((WindowEvent we) -> {
+				try {
+					list.sortir();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			});
 		}
 	}

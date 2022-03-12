@@ -52,17 +52,17 @@ public class SupplierDAO implements Persistable<Supplier>, Serializable {
         hashMap.replace(obj.getId(), get(obj.getId()), obj);
     }
 
-    public void save(String file) throws IOException {
+    public void save() throws IOException {
         System.out.println("guardando dao proveedor...");
-        FileOutputStream fos = new FileOutputStream(file);
+        FileOutputStream fos = new FileOutputStream("supplier.dat");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(this.hashMap);
         oos.close();
     }
 
-    public void load(String file) throws IOException {
+    public void load() throws IOException {
         System.out.println("cargando....");
-        FileInputStream fis = new FileInputStream(file);
+        FileInputStream fis = new FileInputStream("supplier.dat");
         try {
             ObjectInputStream ois = new ObjectInputStream(fis);
             try {
@@ -77,6 +77,7 @@ public class SupplierDAO implements Persistable<Supplier>, Serializable {
         }
 
     }
+
 
 
 }

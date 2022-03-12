@@ -28,7 +28,7 @@ public final class Pack extends Product implements Serializable {
         this.productList = idProdList;
     }
 
-    public int getDiscount() {
+    public Integer getDiscount() {
         return this.discount;
     }
 

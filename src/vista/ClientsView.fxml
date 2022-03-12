@@ -52,8 +52,5 @@
       <Button layoutX="460.0" layoutY="459.0" mnemonicParsing="false" onAction="#deleteClient" text="Eliminar" />
       <Button layoutX="575.0" layoutY="459.0" mnemonicParsing="false" onAction="#onActionSortir" text="Sortir" />
       <Button layoutX="228.0" layoutY="459.0" mnemonicParsing="false" onAction="#list" prefHeight="25.0" prefWidth="92.0" text="List" />
-      <Button layoutX="379.0" layoutY="400.0" mnemonicParsing="false" onAction="#addPhone" prefHeight="37.0" prefWidth="45.0" text="+" />
-      <Button layoutX="437.0" layoutY="400.0" mnemonicParsing="false" onAction="#deletePhone" prefHeight="37.0" prefWidth="45.0" text="-" />
-      <TextField fx:id="guiPhone2" layoutX="101.0" layoutY="319.0" text="123456789" />
    </children>
 </AnchorPane>

@@ -1,6 +1,5 @@
 package model;
 
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -68,7 +67,8 @@ public class Product implements Identificable, Serializable, Comparable<Product>
     @Override
     public String toString() {
         return "Product [id=" + id + ", name=" + name + ", price=" + GenericFormatter.formatPrice(price)
-        + ", startCatalog=" + GenericFormatter.formatDate(startCatalog) + ", endCatalog=" + GenericFormatter.formatDate(endCatalog) + ", stock=" + GenericFormatter.formatNumber(stock) + "]";
+                + ", startCatalog=" + GenericFormatter.formatDate(startCatalog) + ", endCatalog="
+                + GenericFormatter.formatDate(endCatalog) + ", stock=" + GenericFormatter.formatNumber(stock) + "]";
     }
 
     public void putStock(int num) {
@@ -92,11 +92,11 @@ public class Product implements Identificable, Serializable, Comparable<Product>
         return name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public int getStock() {
+    public Integer getStock() {
         return stock;
     }
 
