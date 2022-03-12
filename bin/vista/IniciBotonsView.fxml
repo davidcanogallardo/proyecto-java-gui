@@ -11,11 +11,11 @@
 <AnchorPane fx:id="root" prefHeight="323.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.IniciBotonsController">
 
 	<children>
-		<Button fx:id="btnPersones" layoutX="30.0" layoutY="155.0" mnemonicParsing="false" onAction="#onAction" prefHeight="25.0" prefWidth="70.0" text="%button.persones" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="155.0" /> 
-		<Button fx:id="btnSortir" layoutX="226.0" layoutY="184.0" mnemonicParsing="false" onAction="#onAction" text="%button.sortir" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
-      <Button fx:id="btnProducts" layoutX="30.0" layoutY="32.0" mnemonicParsing="false" onAction="#onAction" text="productos" />
-      <Button fx:id="btnClients" layoutX="30.0" layoutY="63.0" mnemonicParsing="false" onAction="#onAction" prefHeight="25.0" prefWidth="70.0" text="clientes" />
-      <Button fx:id="btnClockInOut" layoutX="30.0" layoutY="95.0" mnemonicParsing="false" onAction="#onAction" prefHeight="25.0" prefWidth="70.0" text="fichar" />
+		<Button fx:id="btnPersones" layoutX="30.0" layoutY="155.0" mnemonicParsing="false" onAction="#onAction" prefHeight="25.0" prefWidth="70.0" text="ewe" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="155.0" /> 
+		<Button fx:id="btnSortir" layoutX="226.0" layoutY="184.0" mnemonicParsing="false" onAction="#onAction" prefHeight="25.0" prefWidth="100.0" text="%btn.exit" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+      <Button fx:id="btnProducts" layoutX="30.0" layoutY="32.0" mnemonicParsing="false" onAction="#onAction" text="%home.btn.products" />
+      <Button fx:id="btnClients" layoutX="30.0" layoutY="63.0" mnemonicParsing="false" onAction="#onAction" prefHeight="25.0" prefWidth="127.0" text="%home.btn.clients" />
+      <Button fx:id="btnClockInOut" layoutX="30.0" layoutY="95.0" mnemonicParsing="false" onAction="#onAction" prefHeight="25.0" prefWidth="127.0" text="%home.btn.clockinout" />
       <TextArea fx:id="ewe" layoutX="254.0" layoutY="32.0" prefHeight="25.0" prefWidth="113.0" /> 
 	</children>
 </AnchorPane>

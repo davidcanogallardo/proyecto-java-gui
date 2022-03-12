@@ -5,69 +5,58 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Locale.Category;
 
-import org.controlsfx.validation.Severity;
-import org.controlsfx.validation.ValidationSupport;
-import org.controlsfx.validation.Validator;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import utils.GenericFormatter;
 
 public class ProductsMenuController {
-    private ResourceBundle texts;
-    // Elements gràfics de la UI
-    private Stage ventana;
+	private ResourceBundle texts;
+	private Stage ventana;
 
-    // Injecció dels panells i controls de la UI definida al fitxer fxml
-    @FXML
-    private Button btnAdd;
-    @FXML
-    private Button btnList;
-    @FXML
-    private Button btnListD;
-    // @FXML private Button btnProducts;
-    @FXML
-    private Button btnReturn;
+	@FXML
+	private Button btnAdd;
+	@FXML
+	private Button btnList;
+	@FXML
+	private Button btnListD;
+	@FXML
+	private Button btnReturn;
 
-    public Stage getVentana() {
-        return ventana;
-    }
+	@FXML
+	private void initialize() {
+		texts = GenericFormatter.getText();
+	}
 
-    public void setVentana(Stage ventana) {
-        System.out.println("seteo ventana");
-        this.ventana = ventana;
-    }
+	public Stage getVentana() {
+		return ventana;
+	}
 
-    public void sortir() {
-        System.out.println("cerrar");
-        // TODO guardar weas
-    }
+	public void setVentana(Stage ventana) {
+		this.ventana = ventana;
+	}
 
-    @FXML
-    private void onActionSortir(ActionEvent e) throws IOException {
-        System.out.println("salgo de products");
-        // TODO sortir();
+	public void onCloseWindow() {
+		// TODO borrar si no lo uso
+	}
 
-        ventana.close();
-    }
+	@FXML
+	private void onActionExit(ActionEvent e) throws IOException {
+		ventana.close();
+	}
 
-    @FXML
+	@FXML
 	private void onAction(ActionEvent e) throws Exception {
-		if (e.getSource() == btnAdd) {// verifica si el botón es igual al que llamo al evento
+		if (e.getSource() == btnAdd) {
 			System.out.println("products view");
-			changeScene("/vista/ProductsView.fxml", "Product");
+			changeScene("/vista/ProductsView.fxml", texts.getString("prodform.title"));
 		} else if (e.getSource() == btnList) {
-            System.out.println("listar");
+			System.out.println("listar");
 		} else if (e.getSource() == btnListD) {
 			System.out.println("listar descatalogados");
 		} else if (e.getSource() == btnReturn) {
@@ -76,33 +65,24 @@ public class ProductsMenuController {
 	}
 
 	private void changeScene(String path, String title) throws IOException {
-		// Carrega el fitxer amb la interficie d'usuari
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
 
-		// Carregar fitxer de textos multiidioma de la localització actual
-		Locale localitzacioDisplay = Locale.getDefault(Category.DISPLAY);
-		texts = ResourceBundle.getBundle("vista.Texts", localitzacioDisplay);
-		// fins aquí tot igual, només falta assignar el fitxer de recursos al formulari
+		texts = GenericFormatter.getText();
 		loader.setResources(texts);
 
-		// Crea una nova finestra i l'obre
 		Stage stage = new Stage();
 		Scene fm_scene = new Scene(loader.load());
 		stage.setTitle(title);
 		stage.setScene(fm_scene);
 		stage.show();
 
-		/************** Modificar ************/
-		// Crear un objecte de la clase PersonasController ja que necessitarem accedir
-		// al mètodes d'aquesta classe
 		if (title.equals("Product")) {
 			ProductsController productsAdd = loader.getController();
 			productsAdd.setVentana(stage);
 
-			// Programem l'event que s'executará quan es tanqui la finestra
 			stage.setOnCloseRequest((WindowEvent we) -> {
 				try {
-					productsAdd.sortir();
+					productsAdd.onCloseWindow();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

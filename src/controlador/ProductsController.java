@@ -58,10 +58,11 @@ public class ProductsController {
     @FXML
     private GridPane packContainer;
 
-    // Elements gràfics de la UI
     private Stage ventana;
 
-    private ValidationSupport vs;
+    // utilizo un validador para packs para que cuando se quiera crear un producto
+    // no valide los campos de pack
+    private ValidationSupport vsProd;
     private ValidationSupport vsPack;
 
     @FXML
@@ -69,16 +70,16 @@ public class ProductsController {
         dao = new ProductDAO();
         dao.load();
 
-        vs = new ValidationSupport();
+        vsProd = new ValidationSupport();
         vsPack = new ValidationSupport();
-        vs.registerValidator(idTextField, true, Validator.createEmptyValidator("ID obligatori"));
-        vs.registerValidator(nameTextField, true, Validator.createEmptyValidator("nombre obligatori"));
-        vs.registerValidator(priceTextField, Validator.createRegexValidator("precio incorrecto",
+        vsProd.registerValidator(idTextField, true, Validator.createEmptyValidator("ID obligatori"));
+        vsProd.registerValidator(nameTextField, true, Validator.createEmptyValidator("nombre obligatori"));
+        vsProd.registerValidator(priceTextField, Validator.createRegexValidator("precio incorrecto",
                 "[0-9]{1,9}\\.[0-9]{1,2}|[0-9]{1,9}", Severity.ERROR));
-        vs.registerValidator(stockTextField,
+        vsProd.registerValidator(stockTextField,
                 Validator.createRegexValidator("stock incorrecte", "\\d{1,9}", Severity.ERROR));
-        vs.registerValidator(startDatePicker, true, Validator.createEmptyValidator("fecha ini obligatori"));
-        vs.registerValidator(endDatePicker, true, Validator.createEmptyValidator("fecha fin obligatori"));
+        vsProd.registerValidator(startDatePicker, true, Validator.createEmptyValidator("fecha ini obligatori"));
+        vsProd.registerValidator(endDatePicker, true, Validator.createEmptyValidator("fecha fin obligatori"));
         vsPack.registerValidator(guiDiscount,
                 Validator.createRegexValidator("descuento obligatorio", "\\d{1,9}", Severity.ERROR));
         vsPack.registerValidator(guiProdList, Validator.createRegexValidator("prod list incorrecto",
@@ -90,29 +91,25 @@ public class ProductsController {
     }
 
     public void setVentana(Stage ventana) {
-        System.out.println("seteo ventana");
         this.ventana = ventana;
     }
 
-    public void sortir() throws IOException {
-        System.out.println("cerrar");
+    public void onCloseWindow() throws IOException {
         dao.save();
-        // TODO guardar weas
     }
 
     @FXML
     private void onActionSortir(ActionEvent e) throws IOException {
-        System.out.println("salgo de products");
-        // TODO sortir();
         dao.save();
         ventana.close();
     }
 
     @FXML
     private void addProd() {
-        System.out.println(isPack.isSelected());
-        if ((!isPack.isSelected() && isDatosValidos(vs)) || (isPack.isSelected() && isDatosValidos(vs) && isDatosValidos(vsPack))) {
-            Product prod = getProductFromGui();
+        // TODO hacerlo leíble
+        if ((!isPack.isSelected() && isProductValid(vsProd))
+                || (isPack.isSelected() && isProductValid(vsProd) && isProductValid(vsPack))) {
+            Product prod = getProductFromForm();
             if (dao.get(Integer.parseInt(idTextField.getText())) == null) {
                 System.out.println("el producto no existe lo añado");
                 dao.add(prod);
@@ -123,11 +120,9 @@ public class ProductsController {
         }
     }
 
-    private boolean isDatosValidos(ValidationSupport vs) {
-        // Comprovar si totes les dades són vàlides
+    private boolean isProductValid(ValidationSupport vs) {
         if (vs.isInvalid()) {
             String errors = vs.getValidationResult().getMessages().toString();
-            // Mostrar finestra amb els errors
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.initOwner(ventana);
             alert.setTitle("Camps incorrectes");
@@ -143,9 +138,7 @@ public class ProductsController {
 
     @FXML
     private void onKeyPressedId(KeyEvent e) throws IOException {
-
         if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.TAB) {
-            // Comprovar si existeix la persona indicada en el control idTextField
             if (dao.get(getProductId()) != null) {
                 if (dao.get(getProductId()) instanceof Pack) {
                     isPack.setSelected(true);
@@ -153,59 +146,36 @@ public class ProductsController {
                     Pack product = (Pack) dao.get(getProductId());
 
                     guiDiscount.setText(product.getDiscount().toString());
-                    setProd(product);
-                    // guiDiscount.setText(arg0);
+                    guiProdList.setText("");
+                    for (Product prod : product.getProdList()) {
+                        if (product.getProdList().last().equals(prod)) {
+                            guiProdList.setText(guiProdList.getText() + prod.getId());
+                        } else {
+                            guiProdList.setText(guiProdList.getText() + prod.getId() + ",");
+
+                        }
+                    }
+                    setProductFields(product);
                 } else {
                     Product product = dao.get(getProductId());
                     stockTextField.setText(product.getStock().toString());
                     isPack.setSelected(false);
                     packContainer.setVisible(false);
-                    setProd(product);
+                    setProductFields(product);
 
                 }
-                // nameTextField.setText();
             }
-            // Product prod = dao.get(getProductId());
-            // if (prod != null) {
-            // // posar els valors per modificarlos
-            // guiDni.setText(prod.getDni());
-            // guiName.setText(prod.getName());
-            // guiSurname.setText(prod.getSurname());
-            // guiLocality.setText(prod.getFullAddress().getLocality());
-            // guiProvince.setText(prod.getFullAddress().getProvince());
-            // guiCp.setText(prod.getFullAddress().getZipCode());
-            // guiAddress.setText(prod.getFullAddress().getAddress());
-            // guiPhone.setText("");
-            // for (String phone : prod.getPhoneNumber()) {
-            // if (prod.getPhoneNumber().toArray()[prod.getPhoneNumber().size() -
-            // 1].equals(phone)) {
-            // guiPhone.setText(guiPhone.getText() + phone);
-            // } else {
-            // guiPhone.setText(guiPhone.getText() + phone + ",");
-            // }
-            // }
-            // } else {
-            // // nou registre
-            // guiDni.setText("");
-            // guiName.setText("");
-            // guiSurname.setText("");
-            // guiLocality.setText("");
-            // guiProvince.setText("");
-            // guiCp.setText("");
-            // guiAddress.setText("");
-            // guiPhone.setText("");
-            // }
         }
     }
 
-    private void setProd(Product prod) {
+    private void setProductFields(Product prod) {
         nameTextField.setText(prod.getName());
         priceTextField.setText(prod.getPrice().toString());
         startDatePicker.setValue(prod.getStartCatalog());
         endDatePicker.setValue(prod.getEndCatalog());
     }
 
-    private Product getProductFromGui() {
+    private Product getProductFromForm() {
         Integer id = Integer.parseInt(idTextField.getText());
         String name = nameTextField.getText();
         double price = Double.parseDouble(priceTextField.getText());
@@ -220,6 +190,12 @@ public class ProductsController {
             Integer discount = Integer.parseInt(guiDiscount.getText());
 
             TreeSet<Product> productList = new TreeSet<>();
+            String[] prodIds = guiProdList.getText().split(",");
+            for (String idProd : prodIds) {
+                if (dao.get(Integer.parseInt(idProd)) != null && dao.get(Integer.parseInt(idProd)) instanceof Product) {
+                    productList.add(dao.get(Integer.parseInt(idProd)));
+                }
+            }
             Pack product = new Pack(productList, discount, id, name, price, startCatalog, endCatalog);
             // Product product = new Product(id, name, price, stock, startCatalog,
             // endCatalog);
@@ -233,7 +209,7 @@ public class ProductsController {
     }
 
     @FXML
-    private void deleteProd() {
+    private void deleteProduct() {
         System.out.println(isPack.isSelected());
         if (dao.get(Integer.parseInt(idTextField.getText())) != null) {
             System.out.println("borro producto...");
@@ -253,12 +229,8 @@ public class ProductsController {
     private void pack() {
         if (!isPack.isSelected()) {
             packContainer.setVisible(false);
-            // guiDiscount.setVisible(false);
-            // guiProdList.setVisible(false);
         } else {
             packContainer.setVisible(true);
-            // guiDiscount.setVisible(true);
-            // guiProdList.setVisible(true);
         }
     }
 

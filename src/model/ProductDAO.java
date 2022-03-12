@@ -36,7 +36,6 @@ public class ProductDAO implements Persistable<Product>, Serializable {
         if (hashMap.containsKey(id)) {
             return (Product) hashMap.get(id);
         } else {
-            System.out.println("nulo " + id);
             return null;
         }
     }
