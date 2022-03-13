@@ -10,21 +10,27 @@ import java.time.LocalTime;
 import java.util.TreeSet;
 
 public class PresenceRegisterDAO {
-    public TreeSet<Presence> hashSet = new TreeSet<>();
+    public TreeSet<Presence> map = new TreeSet<>();
+
+    public TreeSet<Presence> getMap() {
+        return map;
+    }
 
     public Presence add(Presence obj) {
-        for (Presence presence : hashSet) {
+        for (Presence presence : map) {
             if (presence.equals(obj)) {
                 return null;
             }
         }
-        this.hashSet.add(obj);
+        this.map.add(obj);
         return obj;
     }
 
     public boolean addLeaveTime(int id) {
         LocalDate today = LocalDate.now();
-        for (Presence presence : this.hashSet) {
+        
+        for (Presence presence : this.map) {
+            System.out.println(presence.toString());
             if (presence.getId() == id && presence.getDate().compareTo(today) == 0 && presence.getLeaveTime() == null) {
                 LocalTime now = LocalTime.now();
                 presence.setLeaveTime(now);
@@ -35,7 +41,7 @@ public class PresenceRegisterDAO {
     }
 
     public void list() {
-        for (Presence presence : hashSet) {
+        for (Presence presence : map) {
             System.out.println(presence.toString());
 
         }
@@ -45,7 +51,7 @@ public class PresenceRegisterDAO {
         System.out.println("guardando dao client...");
         FileOutputStream fos = new FileOutputStream("presence.dat");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(this.hashSet);
+        oos.writeObject(this.map);
         oos.close();
     }
 
@@ -55,7 +61,7 @@ public class PresenceRegisterDAO {
         try {
             ObjectInputStream ois = new ObjectInputStream(fis);
             try {
-                this.hashSet = (TreeSet<Presence>) ois.readObject();
+                this.map = (TreeSet<Presence>) ois.readObject();
             } catch (ClassNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

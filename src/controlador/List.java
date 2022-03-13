@@ -4,9 +4,7 @@ import java.io.IOException;
 
 import model.Client;
 import model.ClientDAO;
-import model.Product;
-import model.ProductDAO;
-
+import model.Persistable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

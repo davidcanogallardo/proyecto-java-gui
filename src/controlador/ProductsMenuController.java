@@ -13,11 +13,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import model.ClientDAO;
+import model.Product;
+import model.ProductDAO;
 import utils.GenericFormatter;
 
 public class ProductsMenuController {
 	private ResourceBundle texts;
 	private Stage ventana;
+	private ProductDAO dao = new ProductDAO();  
 
 	@FXML
 	private Button btnAdd;
@@ -29,8 +33,9 @@ public class ProductsMenuController {
 	private Button btnReturn;
 
 	@FXML
-	private void initialize() {
+	private void initialize() throws IOException {
 		texts = GenericFormatter.getText();
+		dao.load();
 	}
 
 	public Stage getVentana() {
@@ -56,7 +61,11 @@ public class ProductsMenuController {
 			System.out.println("products view");
 			changeScene("/vista/ProductsView.fxml", texts.getString("prodform.title"));
 		} else if (e.getSource() == btnList) {
-			System.out.println("listar");
+			// System.out.println("listar");
+			for (Product product : dao.getMap().values()) {
+				System.out.println(product.toString()+"\t");
+			}
+
 		} else if (e.getSource() == btnListD) {
 			System.out.println("listar descatalogados");
 		} else if (e.getSource() == btnReturn) {

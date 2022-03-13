@@ -22,9 +22,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import model.Presence;
+import model.PresenceRegisterDAO;
 
 public class PresenceMenuController {
 	private ResourceBundle texts;
+	private PresenceRegisterDAO dao;
 	// Elements gràfics de la UI
 	private Stage ventana;
 
@@ -35,6 +38,12 @@ public class PresenceMenuController {
 	private Button btnList;
 	@FXML
 	private Button btnReturn;
+
+	@FXML
+	private void initialize() throws IOException {
+		dao = new PresenceRegisterDAO();
+		dao.load();
+	}
 
 	public Stage getVentana() {
 		return ventana;
@@ -64,7 +73,9 @@ public class PresenceMenuController {
 			System.out.println("products view");
 			changeScene("/vista/PresenceView.fxml", "Fichar");
 		} else if (e.getSource() == btnList) {
-			System.out.println("listar");
+			for (Presence presence : dao.getMap()) {
+				System.out.println(presence.toString() + "\n");
+			}
 		} else if (e.getSource() == btnReturn) {
 			Platform.exit();
 		}

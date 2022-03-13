@@ -6,15 +6,26 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="240.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ProductsMenuController">
+<AnchorPane fx:id="root" prefHeight="361.0" prefWidth="458.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ProductsMenuController">
 
 	<children>
-		<Button fx:id="btnAdd" layoutX="29.0" layoutY="34.0" mnemonicParsing="false" onAction="#onAction" text="%prodmenu.btn.add" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" /> 
-		<Button fx:id="btnSortir" layoutX="226.0" layoutY="184.0" mnemonicParsing="false" onAction="#onActionSortir" text="%btn.return" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
-      <Text layoutX="95.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="uwu" />
-      <Button fx:id="btnList" layoutX="20.0" layoutY="57.0" mnemonicParsing="false" onAction="#onAction" prefHeight="25.0" prefWidth="125.0" text="%prodmenu.btn.list" />
-      <Button fx:id="btnListD" layoutX="20.0" layoutY="95.0" mnemonicParsing="false" onAction="#onAction" prefHeight="25.0" prefWidth="125.0" text="%prodmenu.btn.listDiscontinued" /> 
+		<Button fx:id="btnAdd" layoutX="106.0" layoutY="56.0" mnemonicParsing="false" onAction="#onAction" prefHeight="44.0" prefWidth="227.0" text="%prodmenu.btn.add" AnchorPane.leftAnchor="106.0" AnchorPane.topAnchor="56.0">
+         <font>
+            <Font size="17.0" />
+         </font></Button> 
+		<Button fx:id="btnSortir" layoutX="226.0" layoutY="184.0" mnemonicParsing="false" onAction="#onActionExit" text="%btn.return" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
+      <Button fx:id="btnList" layoutX="106.0" layoutY="113.0" mnemonicParsing="false" onAction="#onAction" prefHeight="44.0" prefWidth="227.0" text="%prodmenu.btn.list">
+         <font>
+            <Font size="17.0" />
+         </font></Button>
+      <Button fx:id="btnListD" layoutX="106.0" layoutY="171.0" mnemonicParsing="false" onAction="#onAction" prefHeight="44.0" prefWidth="227.0" text="%prodmenu.btn.listDiscontinued">
+         <font>
+            <Font size="18.0" />
+         </font></Button> 
 	</children>
 </AnchorPane>

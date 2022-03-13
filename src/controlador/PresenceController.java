@@ -15,6 +15,8 @@ import model.Presence;
 import model.PresenceRegisterDAO;
 import model.Product;
 import model.ProductDAO;
+import utils.Alert2;
+
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
@@ -34,6 +36,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
 public class PresenceController {
 
     private PresenceRegisterDAO dao;
@@ -57,7 +60,8 @@ public class PresenceController {
         dao.load();
 
         vs = new ValidationSupport();
-        // vs.registerValidator(guiId, Validator.createRegexValidator("id obligatorio", "\\d{9}", Severity.ERROR));
+        // vs.registerValidator(guiId, Validator.createRegexValidator("id obligatorio",
+        // "\\d{9}", Severity.ERROR));
         vs.registerValidator(guiId, true, Validator.createEmptyValidator("ID obligatori"));
     }
 
@@ -105,20 +109,25 @@ public class PresenceController {
     }
 
     @FXML
-	private void onAction(ActionEvent e) throws Exception {
-		if (e.getSource() == guiClockIn) {// verifica si el botón es igual al que llamo al evento
-            if(isDatosValidos()){
+    private void onAction(ActionEvent e) throws Exception {
+        if (e.getSource() == guiClockIn) {// verifica si el botón es igual al que llamo al evento
+            if (isDatosValidos()) {
                 Presence presence = new Presence(Integer.parseInt(guiId.getText()), LocalDate.now(), LocalTime.now());
-                dao.add(presence);
-                System.out.println("ficho entrada");
+                if (dao.add(presence) == null) {
+                    Alert2.showAlertWindow(ventana, "Error", "No se puede fichar de entrada, ficha antes de salida",
+                            "");
+                }
             }
-		} else if (e.getSource() == guiClockOut) {
-            if(isDatosValidos()){
-                dao.addLeaveTime(Integer.parseInt(guiId.getText()));
-                System.out.println("ficho entrada");
+        } else if (e.getSource() == guiClockOut) {
+            if (isDatosValidos()) {
+
+                if (!dao.addLeaveTime(Integer.parseInt(guiId.getText()))) {
+                    Alert2.showAlertWindow(ventana, "Error", "No se puede fichar de salida, ficha antes de entrada",
+                            "");
+                }
             }
-		}
-	}
+        }
+    }
 
     @FXML
     private void list() {

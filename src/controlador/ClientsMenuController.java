@@ -22,61 +22,63 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import model.Client;
 import model.ClientDAO;
 
 public class ClientsMenuController {
 
-    private ClientDAO dao;
+	private ClientDAO dao;
 
-	
-    private ResourceBundle texts;
-    // Elements gràfics de la UI
-    private Stage ventana;
+	private ResourceBundle texts;
+	// Elements gràfics de la UI
+	private Stage ventana;
 
-    // Injecció dels panells i controls de la UI definida al fitxer fxml
-    @FXML
-    private Button btnAdd;
-    @FXML
-    private Button btnList;
-    // @FXML private Button btnProducts;
-    @FXML
-    private Button btnReturn;
+	// Injecció dels panells i controls de la UI definida al fitxer fxml
+	@FXML
+	private Button btnAdd;
+	@FXML
+	private Button btnList;
+	// @FXML private Button btnProducts;
+	@FXML
+	private Button btnReturn;
 
-    @FXML
-    private void initialize() throws IOException {
-        dao = new ClientDAO();
-        dao.load();
+	@FXML
+	private void initialize() throws IOException {
+		dao = new ClientDAO();
+		dao.load();
 	}
 
-    public Stage getVentana() {
-        return ventana;
-    }
+	public Stage getVentana() {
+		return ventana;
+	}
 
-    public void setVentana(Stage ventana) {
-        System.out.println("seteo ventana");
-        this.ventana = ventana;
-    }
+	public void setVentana(Stage ventana) {
+		System.out.println("seteo ventana");
+		this.ventana = ventana;
+	}
 
-    public void sortir() {
-        System.out.println("cerrar");
-        // TODO guardar weas
-    }
+	public void sortir() {
+		System.out.println("cerrar");
+		// TODO guardar weas
+	}
 
-    @FXML
-    private void onActionSortir(ActionEvent e) throws IOException {
-        System.out.println("salgo de clients");
-        // TODO sortir();
+	@FXML
+	private void onActionSortir(ActionEvent e) throws IOException {
+		System.out.println("salgo de clients");
+		// TODO sortir();
 
-        ventana.close();
-    }
+		ventana.close();
+	}
 
-    @FXML
+	@FXML
 	private void onAction(ActionEvent e) throws Exception {
 		if (e.getSource() == btnAdd) {// verifica si el botón es igual al que llamo al evento
 			System.out.println("clients view");
 			changeScene("/vista/ClientsView.fxml", "Client");
 		} else if (e.getSource() == btnList) {
-            System.out.println(dao.getMap().toString());
+			for (Client client : dao.getMap().values()) {
+				System.out.println(client.toString() + "\n");
+			}
 		} else if (e.getSource() == btnReturn) {
 			Platform.exit();
 		}

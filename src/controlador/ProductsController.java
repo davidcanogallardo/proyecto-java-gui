@@ -10,6 +10,9 @@ import java.util.Locale.Category;
 import model.Pack;
 import model.Product;
 import model.ProductDAO;
+import utils.Alert2;
+import utils.GenericFormatter;
+
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
@@ -65,25 +68,32 @@ public class ProductsController {
     private ValidationSupport vsProd;
     private ValidationSupport vsPack;
 
+    private ResourceBundle texts;
+
     @FXML
     private void initialize() throws IOException {
         dao = new ProductDAO();
         dao.load();
 
+        texts = GenericFormatter.getText();
+        String priceRegex = "[0-9]{1,9}\\.[0-9]{1,2}|[0-9]{1,9}";
+        String numRegex = "\\d{1,9}";
+        String prodListRegex = "^(([0-9]{1,9})([,][0-9]{1,9})*)$";
+
         vsProd = new ValidationSupport();
         vsPack = new ValidationSupport();
-        vsProd.registerValidator(idTextField, true, Validator.createEmptyValidator("ID obligatori"));
+        vsProd.registerValidator(idTextField, true, Validator.createEmptyValidator(texts.getString("alert.prod.id")));
         vsProd.registerValidator(nameTextField, true, Validator.createEmptyValidator("nombre obligatori"));
-        vsProd.registerValidator(priceTextField, Validator.createRegexValidator("precio incorrecto",
-                "[0-9]{1,9}\\.[0-9]{1,2}|[0-9]{1,9}", Severity.ERROR));
+        vsProd.registerValidator(priceTextField,
+                Validator.createRegexValidator("precio incorrecto", priceRegex, Severity.ERROR));
         vsProd.registerValidator(stockTextField,
-                Validator.createRegexValidator("stock incorrecte", "\\d{1,9}", Severity.ERROR));
+                Validator.createRegexValidator("stock incorrecte", numRegex, Severity.ERROR));
         vsProd.registerValidator(startDatePicker, true, Validator.createEmptyValidator("fecha ini obligatori"));
         vsProd.registerValidator(endDatePicker, true, Validator.createEmptyValidator("fecha fin obligatori"));
         vsPack.registerValidator(guiDiscount,
-                Validator.createRegexValidator("descuento obligatorio", "\\d{1,9}", Severity.ERROR));
+                Validator.createRegexValidator("descuento obligatorio", numRegex, Severity.ERROR));
         vsPack.registerValidator(guiProdList, Validator.createRegexValidator("prod list incorrecto",
-                "^(([0-9]{1,9})([,][0-9]{1,9})*)$", Severity.ERROR));
+                prodListRegex, Severity.ERROR));
     }
 
     public Stage getVentana() {
@@ -99,7 +109,7 @@ public class ProductsController {
     }
 
     @FXML
-    private void onActionSortir(ActionEvent e) throws IOException {
+    private void onActionExit(ActionEvent e) throws IOException {
         dao.save();
         ventana.close();
     }
@@ -123,12 +133,15 @@ public class ProductsController {
     private boolean isProductValid(ValidationSupport vs) {
         if (vs.isInvalid()) {
             String errors = vs.getValidationResult().getMessages().toString();
-            Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.initOwner(ventana);
-            alert.setTitle("Camps incorrectes");
-            alert.setHeaderText("Corregeix els camps incorrectes");
-            alert.setContentText(errors);
-            alert.showAndWait();
+            String title = GenericFormatter.getText().getString("alert.title");
+            String header = GenericFormatter.getText().getString("alert.message");
+            Alert2.showAlertWindow(ventana, title, header, errors);
+            // Alert alert = new Alert(AlertType.CONFIRMATION);
+            // alert.initOwner(ventana);
+            // alert.setTitle(texts.getString("alert.title"));
+            // alert.setHeaderText("Corregeix els camps incorrectes");
+            // alert.setContentText(errors);
+            // alert.showAndWait();
 
             return false;
         }
@@ -209,7 +222,7 @@ public class ProductsController {
     }
 
     @FXML
-    private void deleteProduct() {
+    private void deleteProd() {
         System.out.println(isPack.isSelected());
         if (dao.get(Integer.parseInt(idTextField.getText())) != null) {
             System.out.println("borro producto...");
