@@ -46,8 +46,7 @@ public class IniciBotonsController extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/IniciBotonsView.fxml"));
-		
-		
+
 		GenericFormatter.setLocale();
 		texts = GenericFormatter.getText();
 		loader.setResources(texts);
