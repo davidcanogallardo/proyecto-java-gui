@@ -33,8 +33,6 @@ public class IniciBotonsController extends Application {
 	private Button btnClockInOut;
 	@FXML
 	private Button btnSortir;
-	@FXML
-	private TextArea ewe;
 
 	@FXML
 	private void initialize() throws IOException {
@@ -88,7 +86,7 @@ public class IniciBotonsController extends Application {
 			ProductsMenuController productsMenu = loader.getController();
 			System.out.println("voy a prods");
 			productsMenu.setVentana(stage);
-		}  else if (title.equals(texts.getString("clientmenu.title"))) {
+		} else if (title.equals(texts.getString("clientmenu.title"))) {
 			ClientsMenuController clientMenu = loader.getController();
 			System.out.println("voy a cliente");
 			clientMenu.setVentana(stage);

@@ -22,7 +22,8 @@ public class GenericFormatter {
     public static void setLocale() {
         System.out.println(lDefault.toString());
         System.out.println(lFormat.toString());
-        if (!lDefault.equals(new Locale("es", "ES")) && !lDefault.equals(new Locale("ca", "ES"))) {
+        if (!lDefault.equals(new Locale("es", "ES")) && !lDefault.equals(new Locale("ca", "ES"))
+                && !lDefault.equals(new Locale("en", "US"))) {
             System.out.println("1");
             lDefault = new Locale("es", "ES");
             System.out.println(lDefault);
