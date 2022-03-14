@@ -115,6 +115,5 @@
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="128.0" layoutY="392.0" mnemonicParsing="false" onAction="#list" prefHeight="25.0" prefWidth="92.0" text="List" />
    </children>
 </AnchorPane>

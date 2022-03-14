@@ -1,42 +1,22 @@
 package controlador;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
-import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.TreeSet;
-import java.util.Locale.Category;
 
-import model.Pack;
 import model.Product;
 import model.ProductDAO;
-import utils.Alert2;
+import utils.AlertWindow;
 import utils.GenericFormatter;
 
-import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
 import java.util.List;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 public class DiscontinuedProdController {
 
@@ -49,8 +29,6 @@ public class DiscontinuedProdController {
 
 	private ResourceBundle texts;
 
-    // utilizo un validador para packs para que cuando se quiera crear un producto
-    // no valide los campos de pack
     private ValidationSupport vs;
 
 
@@ -88,7 +66,7 @@ public class DiscontinuedProdController {
             String errors = vs.getValidationResult().getMessages().toString();
             String title = GenericFormatter.getText().getString("alert.title");
             String header = GenericFormatter.getText().getString("alert.message");
-            Alert2.showAlertWindow(ventana, title, header, errors);
+            AlertWindow.show(ventana, title, header, errors);
 
             return false;
         }

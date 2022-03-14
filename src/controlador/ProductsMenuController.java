@@ -1,9 +1,7 @@
 package controlador;
 
 import java.io.IOException;
-import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.Locale.Category;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -13,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import model.ClientDAO;
 import model.Product;
 import model.ProductDAO;
 import utils.GenericFormatter;
@@ -21,7 +18,7 @@ import utils.GenericFormatter;
 public class ProductsMenuController {
 	private ResourceBundle texts;
 	private Stage ventana;
-	private ProductDAO dao = new ProductDAO();  
+	private ProductDAO dao = new ProductDAO();
 
 	@FXML
 	private Button btnAdd;
@@ -46,10 +43,6 @@ public class ProductsMenuController {
 		this.ventana = ventana;
 	}
 
-	public void onCloseWindow() {
-		// TODO borrar si no lo uso
-	}
-
 	@FXML
 	private void onActionExit(ActionEvent e) throws IOException {
 		ventana.close();
@@ -61,11 +54,9 @@ public class ProductsMenuController {
 			changeScene("/vista/ProductsView.fxml", texts.getString("prodform.title"));
 		} else if (e.getSource() == btnList) {
 			for (Product product : dao.getMap().values()) {
-				System.out.println(product.toString()+"\t");
+				System.out.println(product.toString() + "\t");
 			}
-
 		} else if (e.getSource() == btnListD) {
-			// TODO
 			changeScene("/vista/DiscontinuedProdView.fxml", "list");
 		} else if (e.getSource() == btnReturn) {
 			Platform.exit();
@@ -92,7 +83,6 @@ public class ProductsMenuController {
 				try {
 					productsAdd.onCloseWindow();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			});
@@ -103,11 +93,10 @@ public class ProductsMenuController {
 				try {
 					prod.onCloseWindow();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			});
 		}
- 	}
+	}
 
 }

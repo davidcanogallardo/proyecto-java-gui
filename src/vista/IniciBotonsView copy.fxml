@@ -10,7 +10,8 @@
 
 <AnchorPane fx:id="root" prefHeight="323.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.IniciBotonsController">
 
-	<children> 
+	<children>
+		<Button fx:id="btnPersones" layoutX="168.0" layoutY="237.0" mnemonicParsing="false" onAction="#onAction" prefHeight="25.0" prefWidth="70.0" text="ewe" AnchorPane.leftAnchor="168.0" AnchorPane.topAnchor="237.0" /> 
 		<Button fx:id="btnSortir" layoutX="226.0" layoutY="184.0" mnemonicParsing="false" onAction="#onAction" prefHeight="25.0" prefWidth="100.0" text="%btn.exit" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <font>
             <Font size="15.0" />

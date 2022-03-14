@@ -19,6 +19,7 @@
          <font>
             <Font size="17.0" />
          </font></Button>
+      <Button layoutX="93.0" layoutY="247.0" mnemonicParsing="false" onAction="#list" text="list" />
       <Button fx:id="guiClockIn" layoutX="21.0" layoutY="146.0" mnemonicParsing="false" onAction="#onAction" prefHeight="46.0" prefWidth="149.0" text="%clockinout.btn.clockin">
          <font>
             <Font size="17.0" />

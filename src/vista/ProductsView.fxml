@@ -26,7 +26,6 @@
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="38.0" layoutY="454.0" mnemonicParsing="false" onAction="#list" text="list" />
       <GridPane fx:id="packContainer" layoutX="14.0" layoutY="263.0" prefHeight="172.0" prefWidth="289.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="109.0" />

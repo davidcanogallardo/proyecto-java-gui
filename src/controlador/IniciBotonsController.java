@@ -40,7 +40,6 @@ public class IniciBotonsController extends Application {
 	private void initialize() throws IOException {
 		GenericFormatter.setLocale();
 		texts = GenericFormatter.getText();
-		// System.out.println(GenericFormatter.getText().getString("title.agenda"));
 	}
 
 	@Override
@@ -89,53 +88,17 @@ public class IniciBotonsController extends Application {
 			ProductsMenuController productsMenu = loader.getController();
 			System.out.println("voy a prods");
 			productsMenu.setVentana(stage);
-
-			stage.setOnCloseRequest((WindowEvent we) -> {
-				System.out.println("ewe");
-				productsMenu.onCloseWindow();
-			});
-		} else if (title.equals("Persones")) {
-			PersonesController personasControler = loader.getController();
-			personasControler.setVentana(stage);
-
-			stage.setOnCloseRequest((WindowEvent we) -> {
-				personasControler.sortir();
-			});
-		} else if (title.equals(texts.getString("clientmenu.title"))) {
+		}  else if (title.equals(texts.getString("clientmenu.title"))) {
 			ClientsMenuController clientMenu = loader.getController();
 			System.out.println("voy a cliente");
 			clientMenu.setVentana(stage);
-
-			stage.setOnCloseRequest((WindowEvent we) -> {
-				try {
-					clientMenu.sortir();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			});
 		} else if (title.equals(texts.getString("clockinout.title"))) {
 			PresenceMenuController presenceMenu = loader.getController();
 			System.out.println("voy a cliente");
 			presenceMenu.setVentana(stage);
-
-			stage.setOnCloseRequest((WindowEvent we) -> {
-				presenceMenu.sortir();
-			});
 		} else if (title.equals("ewe")) {
 			List list = loader.getController();
-			System.out.println("voy a list");
 			list.setVentana(stage);
-
-			// Programem l'event que s'executará quan es tanqui la finestra
-			stage.setOnCloseRequest((WindowEvent we) -> {
-				try {
-					list.sortir();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			});
 		}
 	}
 
