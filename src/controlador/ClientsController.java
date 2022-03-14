@@ -3,7 +3,6 @@ package controlador;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Locale.Category;
 
@@ -12,6 +11,9 @@ import model.Client;
 import model.ClientDAO;
 import model.Product;
 import model.ProductDAO;
+import utils.Alert2;
+import utils.GenericFormatter;
+
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
@@ -64,6 +66,8 @@ public class ClientsController {
     // Elements gràfics de la UI
     private Stage ventana;
 
+	private ResourceBundle texts;
+
     private ValidationSupport vs;
     private ArrayList<TextField> phoneFields = new ArrayList<>();
 
@@ -72,19 +76,20 @@ public class ClientsController {
         dao = new ClientDAO();
         dao.load();
 
+        texts = GenericFormatter.getText();
         vs = new ValidationSupport();
-        vs.registerValidator(guiId, true, Validator.createEmptyValidator("ID obligatori"));
+        vs.registerValidator(guiId, true, Validator.createEmptyValidator(texts.getString("alert.client.id")));
         vs.registerValidator(guiDni,
-                Validator.createRegexValidator("Dni incorrecto", "\\d{8}[a-zA-Z]{1}", Severity.ERROR));
-        vs.registerValidator(guiName, true, Validator.createEmptyValidator("Nombre obligatori"));
-        vs.registerValidator(guiSurname, true, Validator.createEmptyValidator("Apelldios obligatori"));
-        vs.registerValidator(guiLocality, true, Validator.createEmptyValidator("localidad obligatori"));
-        vs.registerValidator(guiProvince, true, Validator.createEmptyValidator("provincia obligatori"));
+                Validator.createRegexValidator(texts.getString("alert.client.dni"), "\\d{8}[a-zA-Z]{1}", Severity.ERROR));
+        vs.registerValidator(guiName, true, Validator.createEmptyValidator(texts.getString("alert.client.name")));
+        vs.registerValidator(guiSurname, true, Validator.createEmptyValidator(texts.getString("alert.client.surname")));
+        vs.registerValidator(guiLocality, true, Validator.createEmptyValidator(texts.getString("alert.client.locality")));
+        vs.registerValidator(guiProvince, true, Validator.createEmptyValidator(texts.getString("alert.client.province")));
         vs.registerValidator(guiCp,
-                Validator.createRegexValidator("codigo postal incorrecte", "\\d{5}", Severity.ERROR));
-        vs.registerValidator(guiAddress, true, Validator.createEmptyValidator("direccion obligatori"));
+                Validator.createRegexValidator(texts.getString("alert.client.zipcode"), "\\d{5}", Severity.ERROR));
+        vs.registerValidator(guiAddress, true, Validator.createEmptyValidator(texts.getString("alert.client.address")));
         vs.registerValidator(guiPhone,
-                Validator.createRegexValidator("movil incorrecte", "^(([0-9]{9})([,][0-9]{9})*)$", Severity.ERROR));
+                Validator.createRegexValidator(texts.getString("alert.client.phone"), "^(([0-9]{9})([,][0-9]{9})*)$", Severity.ERROR));
     }
 
     public Stage getVentana() {
@@ -92,18 +97,15 @@ public class ClientsController {
     }
 
     public void setVentana(Stage ventana) {
-        System.out.println("seteo ventana");
         this.ventana = ventana;
     }
 
     public void sortir() throws IOException {
-        System.out.println("cerrar");
         dao.save();
     }
 
     @FXML
     private void onActionSortir(ActionEvent e) throws IOException {
-        System.out.println("salgo de client");
         // TODO sortir();
         dao.save();
         ventana.close();
@@ -117,18 +119,13 @@ public class ClientsController {
                 Client client = getClientFromGui();
 
                 if (dao.add(client) != null) {
-                    System.out.println("\nCliente añadido!\n");
+                    Alert2.showAlertWindow(ventana, texts.getString("alert.client.addtitle"), texts.getString("alert.client.addcontent"), "");
                 } else {
+                    Alert2.showAlertWindow(ventana, texts.getString("alert.client.addtitle"), texts.getString("alert.client.clientmodify"), "");
                     dao.modify(client);
-                    System.out.println("el cliente ya existe lo modifico");
                 }
             } else {
-                Alert alert = new Alert(AlertType.CONFIRMATION);
-                alert.initOwner(ventana);
-                alert.setTitle("DNI incorrecto");
-                alert.setHeaderText("Corrige la letra del dni");
-                alert.setContentText("Corrige la letra del dni");
-                alert.showAndWait();
+                Alert2.showAlertWindow(ventana, texts.getString("alert.client.dnititle"), texts.getString("alert.client.dniletter"), "");
             }
         }
     }
@@ -136,10 +133,10 @@ public class ClientsController {
     @FXML
     private void deleteClient() {
         if (dao.get(getClientId()) != null) {
-            System.out.println("borro cliente...");
+            Alert2.showAlertWindow(ventana, texts.getString("alert.client.deletetitle"), texts.getString("alert.client.deletecontent"), "");
             dao.delete(dao.get(getClientId()));
         } else {
-            System.out.println("el cliente no existe no borro na");
+            Alert2.showAlertWindow(ventana, texts.getString("alert.client.deletetitle"), texts.getString("alert.client.notfound"), "");
             // TODO pack
         }
     }
@@ -176,13 +173,9 @@ public class ClientsController {
         // Comprovar si totes les dades són vàlides
         if (vs.isInvalid()) {
             String errors = vs.getValidationResult().getMessages().toString();
-            // Mostrar finestra amb els errors
-            Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.initOwner(ventana);
-            alert.setTitle("Camps incorrectes");
-            alert.setHeaderText("Corregeix els camps incorrectes");
-            alert.setContentText(errors);
-            alert.showAndWait();
+            String title = GenericFormatter.getText().getString("alert.title");
+            String header = GenericFormatter.getText().getString("alert.message");
+            Alert2.showAlertWindow(ventana, title, header, errors);
 
             return false;
         }
@@ -245,7 +238,7 @@ public class ClientsController {
     private void addPhone() {
         // GridPane pane = new GridPane();
         TextField text = new TextField();
-        text.setId("owo");
+        // text.setId("owo");
         vs.registerValidator(text, Validator.createRegexValidator("movil incorrecte", "\\d{9}", Severity.ERROR));
         pane.addRow(pane.getRowCount() + 1, text);
     }

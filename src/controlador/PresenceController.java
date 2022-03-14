@@ -16,6 +16,7 @@ import model.PresenceRegisterDAO;
 import model.Product;
 import model.ProductDAO;
 import utils.Alert2;
+import utils.GenericFormatter;
 
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationSupport;
@@ -53,16 +54,19 @@ public class PresenceController {
     private Stage ventana;
 
     private ValidationSupport vs;
+	private ResourceBundle texts;
+
 
     @FXML
     private void initialize() throws IOException {
         dao = new PresenceRegisterDAO();
         dao.load();
+        texts = GenericFormatter.getText();
 
         vs = new ValidationSupport();
         // vs.registerValidator(guiId, Validator.createRegexValidator("id obligatorio",
         // "\\d{9}", Severity.ERROR));
-        vs.registerValidator(guiId, true, Validator.createEmptyValidator("ID obligatori"));
+        vs.registerValidator(guiId, true, Validator.createEmptyValidator(texts.getString("alert.presence.id")));
     }
 
     public Stage getVentana() {
@@ -70,14 +74,11 @@ public class PresenceController {
     }
 
     public void setVentana(Stage ventana) {
-        System.out.println("seteo ventana");
         this.ventana = ventana;
     }
 
     public void sortir() throws IOException {
-        System.out.println("cerrar");
         dao.save();
-        // TODO guardar weas
     }
 
     @FXML
@@ -85,13 +86,9 @@ public class PresenceController {
         // Comprovar si totes les dades són vàlides
         if (vs.isInvalid()) {
             String errors = vs.getValidationResult().getMessages().toString();
-            // Mostrar finestra amb els errors
-            Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.initOwner(ventana);
-            alert.setTitle("Camps incorrectes");
-            alert.setHeaderText("Corregeix els camps incorrectes");
-            alert.setContentText(errors);
-            alert.showAndWait();
+            String title = GenericFormatter.getText().getString("alert.title");
+            String header = GenericFormatter.getText().getString("alert.message");
+            Alert2.showAlertWindow(ventana, title, header, errors);
 
             return false;
         }
@@ -102,8 +99,6 @@ public class PresenceController {
 
     @FXML
     private void onActionSortir(ActionEvent e) throws IOException {
-        System.out.println("salgo de products");
-        // TODO sortir();
         dao.save();
         ventana.close();
     }
@@ -114,7 +109,7 @@ public class PresenceController {
             if (isDatosValidos()) {
                 Presence presence = new Presence(Integer.parseInt(guiId.getText()), LocalDate.now(), LocalTime.now());
                 if (dao.add(presence) == null) {
-                    Alert2.showAlertWindow(ventana, "Error", "No se puede fichar de entrada, ficha antes de salida",
+                    Alert2.showAlertWindow(ventana, "Error", texts.getString("alert.presence.clockin"),
                             "");
                 }
             }
@@ -122,8 +117,7 @@ public class PresenceController {
             if (isDatosValidos()) {
 
                 if (!dao.addLeaveTime(Integer.parseInt(guiId.getText()))) {
-                    Alert2.showAlertWindow(ventana, "Error", "No se puede fichar de salida, ficha antes de entrada",
-                            "");
+                    Alert2.showAlertWindow(ventana, "Error", texts.getString("alert.presence.clockout"), "");
                 }
             }
         }
@@ -131,7 +125,6 @@ public class PresenceController {
 
     @FXML
     private void list() {
-        System.out.println("list ");
         dao.list();
     }
 

@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.Presence;
 import model.PresenceRegisterDAO;
+import utils.GenericFormatter;
 
 public class PresenceMenuController {
 	private ResourceBundle texts;
@@ -42,6 +43,7 @@ public class PresenceMenuController {
 	@FXML
 	private void initialize() throws IOException {
 		dao = new PresenceRegisterDAO();
+		texts = GenericFormatter.getText();
 		dao.load();
 	}
 
@@ -84,11 +86,6 @@ public class PresenceMenuController {
 	private void changeScene(String path, String title) throws IOException {
 		// Carrega el fitxer amb la interficie d'usuari
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
-
-		// Carregar fitxer de textos multiidioma de la localització actual
-		Locale localitzacioDisplay = Locale.getDefault(Category.DISPLAY);
-		texts = ResourceBundle.getBundle("vista.Texts", localitzacioDisplay);
-		// fins aquí tot igual, només falta assignar el fitxer de recursos al formulari
 		loader.setResources(texts);
 
 		// Crea una nova finestra i l'obre
@@ -102,7 +99,6 @@ public class PresenceMenuController {
 		// Crear un objecte de la clase PersonasController ja que necessitarem accedir
 		// al mètodes d'aquesta classe
 		if (title.equals("Fichar")) {
-			System.out.println("fichooooooooooooooooooooooooooooo---------------------");
 			PresenceController presenceAdd = loader.getController();
 			presenceAdd.setVentana(stage);
 

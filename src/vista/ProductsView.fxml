@@ -29,20 +29,20 @@
       <Button layoutX="38.0" layoutY="454.0" mnemonicParsing="false" onAction="#list" text="list" />
       <GridPane fx:id="packContainer" layoutX="14.0" layoutY="263.0" prefHeight="172.0" prefWidth="289.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="114.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="175.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="109.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="180.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="131.0" minHeight="10.0" prefHeight="131.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Descuento">
+            <Label text="%prodform.lbl.discount">
                <font>
                   <Font size="14.0" />
                </font></Label>
             <TextField fx:id="guiDiscount" GridPane.columnIndex="1" />
-            <Label prefHeight="0.0" prefWidth="54.0" text="Productos" GridPane.rowIndex="1">
+            <Label prefHeight="18.0" prefWidth="106.0" text="%prodform.lbl.prodlist" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font></Label>

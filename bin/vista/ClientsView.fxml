@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="525.0" prefWidth="599.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ClientsController">
+<AnchorPane fx:id="root" prefHeight="525.0" prefWidth="581.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ClientsController">
    <children>
       <GridPane fx:id="pane" layoutX="100.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="353.0" prefWidth="479.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="14.0">
         <columnConstraints>
@@ -37,31 +37,31 @@
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label prefHeight="20.0" prefWidth="61.0" text="Nombre" GridPane.rowIndex="2">
+            <Label prefHeight="20.0" prefWidth="135.0" text="%clientform.lbl.name" GridPane.rowIndex="2">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label text="Apellidos" GridPane.rowIndex="3">
+            <Label text="%clientform.lbl.surname" GridPane.rowIndex="3">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label text="Localidad" GridPane.rowIndex="4">
+            <Label text="%clientform.lbl.locality" GridPane.rowIndex="4">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label text="Provincia" GridPane.rowIndex="5">
+            <Label text="%clientform.lbl.province" GridPane.rowIndex="5">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label text="CP" GridPane.rowIndex="6">
+            <Label text="%clientform.lbl.zipCode" GridPane.rowIndex="6">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label text="Direccion" GridPane.rowIndex="7">
+            <Label text="%clientform.lbl.address" GridPane.rowIndex="7">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label text="Telefono" GridPane.rowIndex="8">
+            <Label text="%clientform.lbl.phone" GridPane.rowIndex="8">
                <font>
                   <Font size="16.0" />
                </font></Label>
@@ -103,15 +103,15 @@
                </font></TextArea>
          </children>
       </GridPane>
-      <Button layoutX="318.0" layoutY="475.0" mnemonicParsing="false" onAction="#addClient" prefHeight="25.0" prefWidth="92.0" text="Guardar" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="318.0" AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="475.0">
+      <Button layoutX="318.0" layoutY="475.0" mnemonicParsing="false" onAction="#addClient" prefHeight="25.0" prefWidth="92.0" text="%btn.save" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="318.0" AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="475.0">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="455.0" layoutY="475.0" mnemonicParsing="false" onAction="#deleteClient" prefWidth="92.0" text="Eliminar">
+      <Button layoutX="455.0" layoutY="475.0" mnemonicParsing="false" onAction="#deleteClient" prefWidth="92.0" text="%btn.delete">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="561.0" layoutY="475.0" mnemonicParsing="false" onAction="#onActionSortir" prefWidth="92.0" text="Sortir">
+      <Button layoutX="561.0" layoutY="475.0" mnemonicParsing="false" onAction="#onActionSortir" prefWidth="92.0" text="%btn.return">
          <font>
             <Font size="15.0" />
          </font></Button>

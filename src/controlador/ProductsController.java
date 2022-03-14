@@ -63,12 +63,13 @@ public class ProductsController {
 
     private Stage ventana;
 
+	private ResourceBundle texts;
+
     // utilizo un validador para packs para que cuando se quiera crear un producto
     // no valide los campos de pack
     private ValidationSupport vsProd;
     private ValidationSupport vsPack;
 
-    private ResourceBundle texts;
 
     @FXML
     private void initialize() throws IOException {
@@ -83,16 +84,16 @@ public class ProductsController {
         vsProd = new ValidationSupport();
         vsPack = new ValidationSupport();
         vsProd.registerValidator(idTextField, true, Validator.createEmptyValidator(texts.getString("alert.prod.id")));
-        vsProd.registerValidator(nameTextField, true, Validator.createEmptyValidator("nombre obligatori"));
+        vsProd.registerValidator(nameTextField, true, Validator.createEmptyValidator(texts.getString("alert.prod.name")));
         vsProd.registerValidator(priceTextField,
-                Validator.createRegexValidator("precio incorrecto", priceRegex, Severity.ERROR));
+                Validator.createRegexValidator(texts.getString("alert.prod.price"), priceRegex, Severity.ERROR));
         vsProd.registerValidator(stockTextField,
-                Validator.createRegexValidator("stock incorrecte", numRegex, Severity.ERROR));
-        vsProd.registerValidator(startDatePicker, true, Validator.createEmptyValidator("fecha ini obligatori"));
-        vsProd.registerValidator(endDatePicker, true, Validator.createEmptyValidator("fecha fin obligatori"));
+                Validator.createRegexValidator(texts.getString("alert.prod.stock"), numRegex, Severity.ERROR));
+        vsProd.registerValidator(startDatePicker, true, Validator.createEmptyValidator(texts.getString("alert.prod.datestart")));
+        vsProd.registerValidator(endDatePicker, true, Validator.createEmptyValidator(texts.getString("alert.prod.dateend")));
         vsPack.registerValidator(guiDiscount,
-                Validator.createRegexValidator("descuento obligatorio", numRegex, Severity.ERROR));
-        vsPack.registerValidator(guiProdList, Validator.createRegexValidator("prod list incorrecto",
+                Validator.createRegexValidator(texts.getString("alert.pack.discount"), numRegex, Severity.ERROR));
+        vsPack.registerValidator(guiProdList, Validator.createRegexValidator(texts.getString("alert.pack.prods"),
                 prodListRegex, Severity.ERROR));
     }
 
@@ -121,10 +122,11 @@ public class ProductsController {
                 || (isPack.isSelected() && isProductValid(vsProd) && isProductValid(vsPack))) {
             Product prod = getProductFromForm();
             if (dao.get(Integer.parseInt(idTextField.getText())) == null) {
-                System.out.println("el producto no existe lo añado");
+                System.out.println();
+                Alert2.showAlertWindow(ventana, texts.getString("alert.prod.createtitle"), texts.getString("alert.prod.createprod"), "");
                 dao.add(prod);
             } else {
-                System.out.println("el producto existe lo modifico");
+                Alert2.showAlertWindow(ventana, texts.getString("alert.prod.createtitle"), texts.getString("alert.prod.prodmodify"), "");
                 dao.modify(prod);
             }
         }
@@ -225,10 +227,10 @@ public class ProductsController {
     private void deleteProd() {
         System.out.println(isPack.isSelected());
         if (dao.get(Integer.parseInt(idTextField.getText())) != null) {
-            System.out.println("borro producto...");
+            Alert2.showAlertWindow(ventana, texts.getString("alert.prod.deletetitle"), texts.getString("alert.prod.deletecontent"), "");
             dao.delete(dao.get(Integer.parseInt(idTextField.getText())));
         } else {
-            System.out.println("el producto no existe no borro na");
+            Alert2.showAlertWindow(ventana, texts.getString("alert.prod.deletetitle"), texts.getString("alert.prod.prodnotfound"), "");
             // TODO pack
         }
     }

@@ -107,7 +107,12 @@ public class IniciBotonsController extends Application {
 			clientMenu.setVentana(stage);
 
 			stage.setOnCloseRequest((WindowEvent we) -> {
-				clientMenu.sortir();
+				try {
+					clientMenu.sortir();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			});
 		} else if (title.equals(texts.getString("clockinout.title"))) {
 			PresenceMenuController presenceMenu = loader.getController();

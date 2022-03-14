@@ -11,15 +11,15 @@
 <AnchorPane fx:id="root" prefHeight="296.0" prefWidth="458.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ClientsMenuController">
 
 	<children>
-		<Button fx:id="btnAdd" layoutX="116.0" layoutY="69.0" mnemonicParsing="false" onAction="#onAction" prefWidth="227.0" text="Añadir" AnchorPane.leftAnchor="116.0" AnchorPane.topAnchor="69.0">
+		<Button fx:id="btnAdd" layoutX="116.0" layoutY="69.0" mnemonicParsing="false" onAction="#onAction" prefWidth="227.0" text="%clientmenu.btn.add" AnchorPane.leftAnchor="116.0" AnchorPane.topAnchor="69.0">
          <font>
             <Font size="17.0" />
          </font></Button> 
-		<Button fx:id="btnSortir" layoutX="226.0" layoutY="184.0" mnemonicParsing="false" onAction="#onActionSortir" text="volver" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+		<Button fx:id="btnSortir" layoutX="226.0" layoutY="184.0" mnemonicParsing="false" onAction="#onActionSortir" text="%btn.return" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button fx:id="btnList" layoutX="116.0" layoutY="122.0" mnemonicParsing="false" onAction="#onAction" prefHeight="38.0" prefWidth="227.0" text="Listar prods">
+      <Button fx:id="btnList" layoutX="116.0" layoutY="122.0" mnemonicParsing="false" onAction="#onAction" prefHeight="38.0" prefWidth="227.0" text="%clientmenu.btn.list">
          <font>
             <Font size="17.0" />
          </font></Button>

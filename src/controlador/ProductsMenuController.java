@@ -58,16 +58,15 @@ public class ProductsMenuController {
 	@FXML
 	private void onAction(ActionEvent e) throws Exception {
 		if (e.getSource() == btnAdd) {
-			System.out.println("products view");
 			changeScene("/vista/ProductsView.fxml", texts.getString("prodform.title"));
 		} else if (e.getSource() == btnList) {
-			// System.out.println("listar");
 			for (Product product : dao.getMap().values()) {
 				System.out.println(product.toString()+"\t");
 			}
 
 		} else if (e.getSource() == btnListD) {
-			System.out.println("listar descatalogados");
+			// TODO
+			changeScene("/vista/DiscontinuedProdView.fxml", "list");
 		} else if (e.getSource() == btnReturn) {
 			Platform.exit();
 		}
@@ -85,7 +84,7 @@ public class ProductsMenuController {
 		stage.setScene(fm_scene);
 		stage.show();
 
-		if (title.equals("Product")) {
+		if (title.equals(texts.getString("prodform.title"))) {
 			ProductsController productsAdd = loader.getController();
 			productsAdd.setVentana(stage);
 
@@ -97,7 +96,18 @@ public class ProductsMenuController {
 					e.printStackTrace();
 				}
 			});
+		} else if (title.equals("list")) {
+			DiscontinuedProdController prod = loader.getController();
+			prod.setVentana(stage);
+			stage.setOnCloseRequest((WindowEvent we) -> {
+				try {
+					prod.onCloseWindow();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
 		}
-	}
+ 	}
 
 }

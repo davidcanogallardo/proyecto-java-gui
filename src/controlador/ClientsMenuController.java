@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.Client;
 import model.ClientDAO;
+import utils.GenericFormatter;
 
 public class ClientsMenuController {
 
@@ -46,6 +47,7 @@ public class ClientsMenuController {
 	private void initialize() throws IOException {
 		dao = new ClientDAO();
 		dao.load();
+		texts = GenericFormatter.getText();
 	}
 
 	public Stage getVentana() {
@@ -53,28 +55,23 @@ public class ClientsMenuController {
 	}
 
 	public void setVentana(Stage ventana) {
-		System.out.println("seteo ventana");
 		this.ventana = ventana;
 	}
 
-	public void sortir() {
-		System.out.println("cerrar");
+	public void sortir() throws IOException {
 		// TODO guardar weas
+		dao.save();
 	}
 
 	@FXML
 	private void onActionSortir(ActionEvent e) throws IOException {
-		System.out.println("salgo de clients");
-		// TODO sortir();
-
 		ventana.close();
 	}
 
 	@FXML
 	private void onAction(ActionEvent e) throws Exception {
 		if (e.getSource() == btnAdd) {// verifica si el botón es igual al que llamo al evento
-			System.out.println("clients view");
-			changeScene("/vista/ClientsView.fxml", "Client");
+			changeScene("/vista/ClientsView.fxml", texts.getString("clientform.title"));
 		} else if (e.getSource() == btnList) {
 			for (Client client : dao.getMap().values()) {
 				System.out.println(client.toString() + "\n");
@@ -104,7 +101,7 @@ public class ClientsMenuController {
 		/************** Modificar ************/
 		// Crear un objecte de la clase PersonasController ja que necessitarem accedir
 		// al mètodes d'aquesta classe
-		if (title.equals("Client")) {
+		if (title.equals(texts.getString("clientform.title"))) {
 			ClientsController clientsAdd = loader.getController();
 			clientsAdd.setVentana(stage);
 

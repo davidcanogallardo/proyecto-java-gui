@@ -11,7 +11,7 @@
 <AnchorPane fx:id="root" prefHeight="361.0" prefWidth="458.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ProductsMenuController">
 
 	<children>
-		<Button fx:id="btnAdd" layoutX="106.0" layoutY="56.0" mnemonicParsing="false" onAction="#onAction" prefHeight="44.0" prefWidth="227.0" text="%prodmenu.btn.add" AnchorPane.leftAnchor="106.0" AnchorPane.topAnchor="56.0">
+		<Button fx:id="btnAdd" layoutX="64.0" layoutY="45.0" mnemonicParsing="false" onAction="#onAction" prefHeight="44.0" prefWidth="331.0" text="%prodmenu.btn.add" AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="45.0">
          <font>
             <Font size="17.0" />
          </font></Button> 
@@ -19,13 +19,13 @@
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button fx:id="btnList" layoutX="106.0" layoutY="113.0" mnemonicParsing="false" onAction="#onAction" prefHeight="44.0" prefWidth="227.0" text="%prodmenu.btn.list">
+      <Button fx:id="btnList" layoutX="64.0" layoutY="112.0" mnemonicParsing="false" onAction="#onAction" prefHeight="44.0" prefWidth="331.0" text="%prodmenu.btn.list">
          <font>
             <Font size="17.0" />
          </font></Button>
-      <Button fx:id="btnListD" layoutX="106.0" layoutY="171.0" mnemonicParsing="false" onAction="#onAction" prefHeight="44.0" prefWidth="227.0" text="%prodmenu.btn.listDiscontinued">
+      <Button fx:id="btnListD" layoutX="64.0" layoutY="181.0" mnemonicParsing="false" onAction="#onAction" prefHeight="44.0" prefWidth="331.0" text="%prodmenu.btn.listDiscontinued">
          <font>
-            <Font size="18.0" />
+            <Font size="17.0" />
          </font></Button> 
 	</children>
 </AnchorPane>
