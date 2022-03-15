@@ -40,7 +40,7 @@ public class PresenceController {
     private void initialize() throws IOException {
         dao = new PresenceRegisterDAO();
         dao.load();
-        texts = GenericFormatter.getText();
+        texts = GenericFormatter.getResourceBundle();
 
         vs = new ValidationSupport();
         vs.registerValidator(guiId, true, Validator.createEmptyValidator(texts.getString("alert.presence.id")));
@@ -62,8 +62,8 @@ public class PresenceController {
     private boolean isDatosValidos() {
         if (vs.isInvalid()) {
             String errors = vs.getValidationResult().getMessages().toString();
-            String title = GenericFormatter.getText().getString("alert.title");
-            String header = GenericFormatter.getText().getString("alert.message");
+            String title = GenericFormatter.getResourceBundle().getString("alert.title");
+            String header = GenericFormatter.getResourceBundle().getString("alert.message");
             AlertWindow.show(ventana, title, header, errors);
 
             return false;

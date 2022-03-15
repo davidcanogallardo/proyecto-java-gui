@@ -33,7 +33,7 @@ public class ClientsMenuController {
 	private void initialize() throws IOException {
 		dao = new ClientDAO();
 		dao.load();
-		texts = GenericFormatter.getText();
+		texts = GenericFormatter.getResourceBundle();
 	}
 
 	public Stage getVentana() {

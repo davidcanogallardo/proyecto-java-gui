@@ -37,7 +37,7 @@ public class DiscontinuedProdController {
         dao = new ProductDAO();
         dao.load();
 
-        texts = GenericFormatter.getText();
+        texts = GenericFormatter.getResourceBundle();
 
         vs = new ValidationSupport();
         vs.registerValidator(date, true, Validator.createEmptyValidator(texts.getString("alert.prodlist.date")));
@@ -64,8 +64,8 @@ public class DiscontinuedProdController {
     private boolean isDateValid() {
         if (vs.isInvalid()) {
             String errors = vs.getValidationResult().getMessages().toString();
-            String title = GenericFormatter.getText().getString("alert.title");
-            String header = GenericFormatter.getText().getString("alert.message");
+            String title = GenericFormatter.getResourceBundle().getString("alert.title");
+            String header = GenericFormatter.getResourceBundle().getString("alert.message");
             AlertWindow.show(ventana, title, header, errors);
 
             return false;

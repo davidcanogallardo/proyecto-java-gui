@@ -31,7 +31,7 @@ public class PresenceMenuController {
 	@FXML
 	private void initialize() throws IOException {
 		dao = new PresenceRegisterDAO();
-		texts = GenericFormatter.getText();
+		texts = GenericFormatter.getResourceBundle();
 		dao.load();
 	}
 

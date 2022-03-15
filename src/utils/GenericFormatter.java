@@ -24,24 +24,21 @@ public class GenericFormatter {
         System.out.println(lFormat.toString());
         if (!lDefault.equals(new Locale("es", "ES")) && !lDefault.equals(new Locale("ca", "ES"))
                 && !lDefault.equals(new Locale("en", "US"))) {
-            System.out.println("1");
             lDefault = new Locale("es", "ES");
             System.out.println(lDefault);
             df = DateFormat.getDateInstance(DateFormat.SHORT, lDefault);
             text = ResourceBundle.getBundle("vista.Texts", lDefault);
         }
         if (!lFormat.equals(new Locale("es", "ES")) && !lFormat.equals(new Locale("ca", "ES"))) {
-            System.out.println("2");
             lFormat = new Locale("es", "ES");
             System.out.println(lFormat);
         }
 
         nFormatter = NumberFormat.getNumberInstance(lFormat);
         cFormatter = NumberFormat.getCurrencyInstance(lFormat);
-        // text = ResourceBundle.getBundle("vista.Texts_es_ES", lDefault);
     }
 
-    public static ResourceBundle getText() {
+    public static ResourceBundle getResourceBundle() {
         return text;
     }
 

@@ -31,7 +31,7 @@ public class ProductsMenuController {
 
 	@FXML
 	private void initialize() throws IOException {
-		texts = GenericFormatter.getText();
+		texts = GenericFormatter.getResourceBundle();
 		dao.load();
 	}
 
@@ -66,7 +66,7 @@ public class ProductsMenuController {
 	private void changeScene(String path, String title) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
 
-		texts = GenericFormatter.getText();
+		texts = GenericFormatter.getResourceBundle();
 		loader.setResources(texts);
 
 		Stage stage = new Stage();

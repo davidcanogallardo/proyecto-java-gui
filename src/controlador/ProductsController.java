@@ -66,7 +66,7 @@ public class ProductsController {
         dao = new ProductDAO();
         dao.load();
 
-        texts = GenericFormatter.getText();
+        texts = GenericFormatter.getResourceBundle();
         String priceRegex = "[0-9]{1,9}\\.[0-9]{1,2}|[0-9]{1,9}";
         String numRegex = "\\d{1,9}";
         // La lista de productos de un pack es una serie de números separados por una
@@ -135,8 +135,8 @@ public class ProductsController {
     private boolean isProductValid(ValidationSupport vs) {
         if (vs.isInvalid()) {
             String errors = vs.getValidationResult().getMessages().toString();
-            String title = GenericFormatter.getText().getString("alert.title");
-            String header = GenericFormatter.getText().getString("alert.message");
+            String title = GenericFormatter.getResourceBundle().getString("alert.title");
+            String header = GenericFormatter.getResourceBundle().getString("alert.message");
             AlertWindow.show(ventana, title, header, errors);
 
             return false;

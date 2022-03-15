@@ -60,7 +60,7 @@ public class ClientsController {
         dao = new ClientDAO();
         dao.load();
 
-        texts = GenericFormatter.getText();
+        texts = GenericFormatter.getResourceBundle();
         vs = new ValidationSupport();
         vs.registerValidator(guiId, true, Validator.createEmptyValidator(texts.getString("alert.client.id")));
         vs.registerValidator(guiDni,
@@ -172,8 +172,8 @@ public class ClientsController {
         // Comprovar si totes les dades són vàlides
         if (vs.isInvalid()) {
             String errors = vs.getValidationResult().getMessages().toString();
-            String title = GenericFormatter.getText().getString("alert.title");
-            String header = GenericFormatter.getText().getString("alert.message");
+            String title = GenericFormatter.getResourceBundle().getString("alert.title");
+            String header = GenericFormatter.getResourceBundle().getString("alert.message");
             AlertWindow.show(ventana, title, header, errors);
 
             return false;

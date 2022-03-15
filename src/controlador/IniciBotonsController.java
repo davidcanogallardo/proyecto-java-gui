@@ -37,7 +37,7 @@ public class IniciBotonsController extends Application {
 	@FXML
 	private void initialize() throws IOException {
 		GenericFormatter.setLocale();
-		texts = GenericFormatter.getText();
+		texts = GenericFormatter.getResourceBundle();
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class IniciBotonsController extends Application {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/IniciBotonsView.fxml"));
 
 		GenericFormatter.setLocale();
-		texts = GenericFormatter.getText();
+		texts = GenericFormatter.getResourceBundle();
 		loader.setResources(texts);
 
 		Scene fm_inici = new Scene(loader.load());
@@ -73,7 +73,7 @@ public class IniciBotonsController extends Application {
 	private void changeScene(String path, String title) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
 
-		texts = GenericFormatter.getText();
+		texts = GenericFormatter.getResourceBundle();
 		loader.setResources(texts);
 
 		Stage stage = new Stage();
@@ -94,9 +94,6 @@ public class IniciBotonsController extends Application {
 			PresenceMenuController presenceMenu = loader.getController();
 			System.out.println("voy a cliente");
 			presenceMenu.setVentana(stage);
-		} else if (title.equals("ewe")) {
-			List list = loader.getController();
-			list.setVentana(stage);
 		}
 	}
 
