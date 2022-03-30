@@ -2,6 +2,7 @@ package controlador;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
@@ -65,12 +66,10 @@ public class PresenceController {
             String title = GenericFormatter.getResourceBundle().getString("alert.title");
             String header = GenericFormatter.getResourceBundle().getString("alert.message");
             AlertWindow.show(ventana, title, header, errors);
-
             return false;
         }
 
         return true;
-
     }
 
     @FXML
@@ -83,16 +82,15 @@ public class PresenceController {
     private void onAction(ActionEvent e) throws Exception {
         if (e.getSource() == guiClockIn) {
             if (isDatosValidos()) {
-                Presence presence = new Presence(Integer.parseInt(guiId.getText()), LocalDate.now(), LocalTime.now());
+                Presence presence = new Presence(Integer.parseInt(guiId.getText()), LocalDateTime.now());
                 if (dao.add(presence) == null) {
                     AlertWindow.show(ventana, "Error", texts.getString("alert.presence.clockin"), "");
                 }
             }
         } else if (e.getSource() == guiClockOut) {
             if (isDatosValidos()) {
-
                 if (!dao.addLeaveTime(Integer.parseInt(guiId.getText()))) {
-                    AlertWindow.show(ventana, "Error", texts.getString("alert.presence.clockout"), "");
+                    AlertWindow.show(ventana, "Error2", texts.getString("alert.presence.clockout"), "");
                 }
             }
         }

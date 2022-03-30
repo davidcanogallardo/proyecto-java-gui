@@ -6,13 +6,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch Main",
-            "request": "launch",
-            "mainClass": "controlador.IniciBotonsController",
-            "projectName": "proyecto-java-gui_9410ab0e"
-        },
-        {
-            "type": "java",
             "name": "Launch App",
             "request": "launch",
             "mainClass": "controlador.IniciBotonsController",

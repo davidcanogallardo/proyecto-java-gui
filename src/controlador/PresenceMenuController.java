@@ -54,9 +54,10 @@ public class PresenceMenuController {
 			System.out.println("products view");
 			changeScene("/vista/PresenceView.fxml", "Fichar");
 		} else if (e.getSource() == btnList) {
-			for (Presence presence : dao.getMap()) {
-				System.out.println(presence.toString() + "\n");
-			}
+			dao.list();
+			System.out.println("");
+			System.out.println("");
+			System.out.println("");
 		} else if (e.getSource() == btnReturn) {
 			Platform.exit();
 		}

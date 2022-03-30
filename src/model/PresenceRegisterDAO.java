@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.TreeSet;
 
@@ -18,22 +19,20 @@ public class PresenceRegisterDAO {
 
     public Presence add(Presence obj) {
         for (Presence presence : map) {
-            if (presence.equals(obj)) {
+            if (presence.getId() == obj.getId() && presence.getLeaveTime() == null) {
+                System.out.println("nulo");
                 return null;
             }
         }
+        System.out.println("nonulo");
         this.map.add(obj);
         return obj;
     }
 
     public boolean addLeaveTime(int id) {
-        LocalDate today = LocalDate.now();
-        
         for (Presence presence : this.map) {
-            System.out.println(presence.toString());
-            if (presence.getId() == id && presence.getDate().compareTo(today) == 0 && presence.getLeaveTime() == null) {
-                LocalTime now = LocalTime.now();
-                presence.setLeaveTime(now);
+            if (presence.getId() == id && presence.getLeaveTime() == null) {
+                presence.setLeaveTime(LocalDateTime.now());
                 return true;
             }
         }
@@ -43,12 +42,11 @@ public class PresenceRegisterDAO {
     public void list() {
         for (Presence presence : map) {
             System.out.println(presence.toString());
-
         }
     }
 
     public void save() throws IOException {
-        System.out.println("guardando dao client...");
+        System.out.println("guardando dao presence...");
         FileOutputStream fos = new FileOutputStream("presence.dat");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(this.map);
