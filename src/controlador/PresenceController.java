@@ -1,10 +1,13 @@
 package controlador;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
+import java.util.TreeSet;
 
 import model.Presence;
 import model.PresenceRegisterDAO;
@@ -94,6 +97,8 @@ public class PresenceController {
                 }
             }
         }
+        System.out.println("--------------------list----------------------------");
+        list();
     }
 
     @FXML

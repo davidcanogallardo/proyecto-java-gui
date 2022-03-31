@@ -130,6 +130,8 @@ public class ProductsController {
                 dao.modify(prod);
             }
         }
+        System.out.println("--------------------list----------------------------");
+        list();
     }
 
     private boolean isProductValid(ValidationSupport vs) {
@@ -229,6 +231,8 @@ public class ProductsController {
             AlertWindow.show(ventana, texts.getString("alert.prod.deletetitle"),
                     texts.getString("alert.prod.prodnotfound"), "");
         }
+        System.out.println("--------------------list----------------------------");
+        list();
     }
 
     @FXML

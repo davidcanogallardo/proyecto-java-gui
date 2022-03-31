@@ -1,8 +1,10 @@
 package controlador;
 
+import java.io.FileInputStream;
 import java.io.IOException;
-
+import java.io.ObjectInputStream;
 import java.util.ResourceBundle;
+import java.util.TreeSet;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -13,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Presence;
 import utils.GenericFormatter;
 
 public class IniciBotonsController extends Application {
@@ -36,6 +39,26 @@ public class IniciBotonsController extends Application {
 	private void initialize() throws IOException {
 		GenericFormatter.setLocale();
 		texts = GenericFormatter.getResourceBundle();
+
+		TreeSet<Presence> map = new TreeSet<>();
+        FileInputStream fis = new FileInputStream("presence.dat");
+        try {
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            try {
+                map = (TreeSet<Presence>) ois.readObject();
+            } catch (ClassNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            ois.close();
+        } catch (Exception EOFException) {
+            // TODO: handle exception
+        }
+
+		for (Presence presence : map) {
+			System.out.println(presence.toString());
+		}
+		
 	}
 
 	@Override

@@ -1,11 +1,11 @@
 package model;
 
+
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import utils.GenericFormatter;
+
 
 public class Presence implements Comparable<Presence>, Serializable {
     private Integer id;
@@ -51,15 +51,7 @@ public class Presence implements Comparable<Presence>, Serializable {
 
     @Override
     public String toString() {
-        return "Presence [enterTime=" + GenericFormatter.formatDateTime(enterTime) + ", id=" + id + ", leaveTime=" + GenericFormatter.formatDateTime(leaveTime) + "]";
-    }
-
-    // Defino que dos Presence son iguales cuando tienen el mismo id y fecha
-    // y no tengan fecha de salida
-    @Override
-    public boolean equals(Object obj) {
-        Presence obj2 = (Presence) obj;
-        return this.id == obj2.id && this.leaveTime == null && obj2.leaveTime == null;
+        return "Presence [id=" + id +", enterTime=" + GenericFormatter.formatDateTime(enterTime) + ", leaveTime=" + GenericFormatter.formatDateTime(leaveTime) + "]";
     }
 
     // Ordeno numericamente por el id y si tienen id ordeno por fecha y hora de

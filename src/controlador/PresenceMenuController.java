@@ -56,8 +56,6 @@ public class PresenceMenuController {
 		} else if (e.getSource() == btnList) {
 			dao.list();
 			System.out.println("");
-			System.out.println("");
-			System.out.println("");
 		} else if (e.getSource() == btnReturn) {
 			Platform.exit();
 		}

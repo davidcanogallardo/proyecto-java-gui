@@ -1,37 +1,37 @@
 package model;
 
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class PresenceRegisterDAO {
-    public TreeSet<Presence> map = new TreeSet<>();
+    public ArrayList<Presence> map = new ArrayList<>();
 
-    public TreeSet<Presence> getMap() {
+    public ArrayList<Presence> getMap() {
         return map;
     }
 
     public Presence add(Presence obj) {
         for (Presence presence : map) {
-            if (presence.getId() == obj.getId() && presence.getLeaveTime() == null) {
-                System.out.println("nulo");
+            if (presence.getId().equals(obj.getId()) && presence.getLeaveTime() == null) {
+                System.out.println("no añado");
                 return null;
             }
         }
-        System.out.println("nonulo");
         this.map.add(obj);
+        System.out.println("añado");        
         return obj;
     }
 
     public boolean addLeaveTime(int id) {
         for (Presence presence : this.map) {
-            if (presence.getId() == id && presence.getLeaveTime() == null) {
+            if (presence.getId().equals(id) && presence.getLeaveTime() == null) {
                 presence.setLeaveTime(LocalDateTime.now());
                 return true;
             }
@@ -46,11 +46,16 @@ public class PresenceRegisterDAO {
     }
 
     public void save() throws IOException {
-        System.out.println("guardando dao presence...");
-        FileOutputStream fos = new FileOutputStream("presence.dat");
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(this.map);
-        oos.close();
+        System.out.println("guardando222");
+        try {
+            FileOutputStream fos = new FileOutputStream("presence.dat");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(this.map);
+            oos.close();
+            System.out.println("presencia guardada");
+         } catch(Exception e) {
+            System.out.println("Error Occurred : " + e.getMessage());
+         }
     }
 
     public void load() throws IOException {
@@ -59,7 +64,7 @@ public class PresenceRegisterDAO {
         try {
             ObjectInputStream ois = new ObjectInputStream(fis);
             try {
-                this.map = (TreeSet<Presence>) ois.readObject();
+                this.map = (ArrayList<Presence>) ois.readObject();
             } catch (ClassNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -68,6 +73,5 @@ public class PresenceRegisterDAO {
         } catch (Exception EOFException) {
             // TODO: handle exception
         }
-
     }
 }

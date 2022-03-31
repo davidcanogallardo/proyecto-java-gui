@@ -124,6 +124,8 @@ public class ClientsController {
                         texts.getString("alert.client.dniletter"), "");
             }
         }
+        System.out.println("--------------------list----------------------------");
+        list();
     }
 
     @FXML
@@ -138,6 +140,8 @@ public class ClientsController {
             AlertWindow.show(ventana, texts.getString("alert.client.deletetitle"),
                     texts.getString("alert.client.notfound"), "");
         }
+        System.out.println("--------------------list----------------------------");
+        list();
     }
 
     // Devuelve una instancia de cliente según los datos de la interfaz gráfica
