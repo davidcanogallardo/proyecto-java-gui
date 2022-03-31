@@ -1,1 +1,1 @@
-
+# !!Al cerrar la ventana AlgoController.java (por ejemplo ClientController.java) si se han hecho cambios en la lista de productos/clientes etc no se verán reflejados en la ventana de AlgoMenuController.java al hacer click en listar.
